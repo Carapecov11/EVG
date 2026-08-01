@@ -23,6 +23,8 @@ router.post("/cadastro", async (req, res) => {
 
     }
 
+    console.log("Tentando login:", { nome, tribo });
+
     db.get(
         "SELECT * FROM usuarios WHERE nome = ?",
         [nome],
