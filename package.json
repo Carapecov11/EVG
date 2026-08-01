@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "start": "node backend/server.js",
-  "dev": "vite",
-  "build": "vite build"
-},
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "vite",
+    "build": "vite build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
