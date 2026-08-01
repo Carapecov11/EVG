@@ -4,3 +4,5 @@ android/app/build/
 *.apk
 *.db
 .env
+.env
+backups/
