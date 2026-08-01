@@ -8,7 +8,7 @@ const { Share } = Capacitor.Plugins;
 //console.log("Filesystem:", Filesystem);
 //console.log("Share:", Share);
 
-const API = "https://SEU-SERVIDOR.com";
+const API = "https://evg-api-3u5m.onrender.com";
 
 let triboSelecionada = "";
 let jovens = [];

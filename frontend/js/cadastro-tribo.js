@@ -1,4 +1,4 @@
-const API = "https://SEU-SERVIDOR.com";
+const API = "https://evg-api-3u5m.onrender.com";
 
 const params = new URLSearchParams(window.location.search);
 const tribo = params.get("tribo");

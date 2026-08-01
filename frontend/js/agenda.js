@@ -1,13 +1,11 @@
-const API = "https://SEU-SERVIDOR.com";
+const API = "https://evg-api-3u5m.onrender.com";
 
 const listaEventos = document.getElementById("listaEventos");
 
 async function solicitarPermissao() {
 
     if (!("Notification" in window)) {
-
-        alert("Seu navegador não suporta notificações.");
-
+        
         return;
 
     }
