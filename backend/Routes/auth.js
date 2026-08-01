@@ -12,83 +12,60 @@ console.log(">>>>>>>> AUTH ROUTES CARREGADO <<<<<<<<");
 
 router.post("/cadastro", async (req, res) => {
 
-    const { nome, senha, tribo } = req.body;
+    try {
 
-    if (!nome || !senha || !tribo) {
+        const { nome, senha, tribo } = req.body;
 
-        return res.status(400).json({
+        if (!nome || !senha || !tribo) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: "Preencha todos os campos."
+            });
+        }
+
+        const usuario = await db.query(
+            "SELECT * FROM usuarios WHERE nome = $1",
+            [nome]
+        );
+
+        if (usuario.rows.length > 0) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: "Usuário já existe."
+            });
+        }
+
+        const senhaHash = await bcrypt.hash(senha, 10);
+
+        await db.query(
+            `INSERT INTO usuarios
+            (nome, senha, tribo, foto)
+            VALUES ($1, $2, $3, $4)`,
+            [
+                nome,
+                senhaHash,
+                tribo,
+                null
+            ]
+        );
+
+        res.json({
+            sucesso: true,
+            mensagem: "Usuário cadastrado com sucesso."
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
             sucesso: false,
-            mensagem: "Preencha todos os campos."
+            mensagem: err.message
         });
 
     }
 
-    console.log("Tentando login:", { nome, tribo });
-
-    db.get(
-        "SELECT * FROM usuarios WHERE nome = ?",
-        [nome],
-        async (err, usuario) => {
-
-            if (err) {
-
-                return res.status(500).json({
-                    sucesso: false,
-                    mensagem: err.message
-                });
-
-            }
-
-            if (usuario) {
-
-                return res.status(400).json({
-                    sucesso: false,
-                    mensagem: "Usuário já existe."
-                });
-
-            }
-
-            const senhaHash = await bcrypt.hash(senha, 10);
-
-            db.run(
-
-                "INSERT INTO usuarios (nome, senha, tribo, foto) VALUES (?, ?, ?, ?)",
-
-                [
-                    nome,
-                    senhaHash,
-                    tribo,
-                    null
-                ],
-
-                function (err) {
-
-                    if (err) {
-
-                        return res.status(500).json({
-                            sucesso: false,
-                            mensagem: err.message
-                        });
-
-                    }
-
-                    res.json({
-
-                        sucesso: true,
-                        mensagem: "Usuário cadastrado com sucesso."
-
-                    });
-
-                }
-
-            );
-
-        }
-
-    );
-
 });
-
 
 // ===============================
 // LOGIN
@@ -98,97 +75,66 @@ router.post("/login", async (req, res) => {
 
     try {
 
-        console.log("LOGIN RECEBIDO:", req.body);
-
         const { nome, senha, tribo } = req.body;
 
-        db.get(
-            "SELECT * FROM usuarios WHERE nome = ? AND tribo = ?",
-            [nome, tribo],
-            async (err, usuario) => {
-
-                try {
-
-                    if (err) {
-                        console.log("ERRO SQLITE:", err);
-
-                        return res.status(500).json({
-                            sucesso: false,
-                            mensagem: err.message
-                        });
-                    }
-
-                    console.log("USUARIO:", usuario);
-
-                    if (!usuario) {
-
-                        return res.status(401).json({
-                            sucesso: false,
-                            mensagem: "Usuário não encontrado."
-                        });
-
-                    }
-
-                    console.log("Comparando senha...");
-
-                    const senhaValida = await bcrypt.compare(
-                        senha,
-                        usuario.senha
-                    );
-
-                    console.log("Senha válida:", senhaValida);
-
-                    if (!senhaValida) {
-
-                        return res.status(401).json({
-                            sucesso: false,
-                            mensagem: "Senha incorreta."
-                        });
-
-                    }
-
-                    console.log("Enviando resposta...");
-
-                    return res.json({
-
-                        sucesso: true,
-
-                        mensagem: "Login realizado.",
-
-                        usuario: {
-
-                            id: usuario.id,
-                            nome: usuario.nome,
-                            tribo: usuario.tribo,
-                            foto: usuario.foto
-
-                        }
-
-                    });
-
-                } catch (e) {
-
-                    console.log("ERRO DENTRO DO DB.GET");
-                    console.error(e);
-
-                    return res.status(500).json({
-                        sucesso: false,
-                        mensagem: e.message
-                    });
-
-                }
-
-            }
+        const resultado = await db.query(
+            `SELECT *
+             FROM usuarios
+             WHERE nome = $1
+             AND tribo = $2`,
+            [nome, tribo]
         );
 
-    } catch (e) {
+        if (resultado.rows.length === 0) {
 
-        console.log("ERRO GERAL LOGIN");
-        console.error(e);
+            return res.status(401).json({
+                sucesso: false,
+                mensagem: "Usuário não encontrado."
+            });
 
-        return res.status(500).json({
+        }
+
+        const usuario = resultado.rows[0];
+
+        const senhaValida =
+            await bcrypt.compare(
+                senha,
+                usuario.senha
+            );
+
+        if (!senhaValida) {
+
+            return res.status(401).json({
+                sucesso: false,
+                mensagem: "Senha incorreta."
+            });
+
+        }
+
+        res.json({
+
+            sucesso: true,
+
+            mensagem: "Login realizado.",
+
+            usuario: {
+
+                id: usuario.id,
+                nome: usuario.nome,
+                tribo: usuario.tribo,
+                foto: usuario.foto
+
+            }
+
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
             sucesso: false,
-            mensagem: e.message
+            mensagem: err.message
         });
 
     }
@@ -201,62 +147,62 @@ router.post("/login", async (req, res) => {
 
 router.put("/atualizar", async (req, res) => {
 
-    const { id, nome, senha, tribo, foto } = req.body;
-
-    if (!id) {
-
-        return res.status(400).json({
-            mensagem: "Usuário não informado."
-        });
-
-    }
-
     try {
 
-        let senhaHash = null;
+        const { id, nome, senha, tribo, foto } = req.body;
+
+        if (!id) {
+            return res.status(400).json({
+                mensagem: "Usuário não informado."
+            });
+        }
 
         if (senha && senha.trim() !== "") {
 
-            senhaHash = await bcrypt.hash(senha, 10);
+            const senhaHash = await bcrypt.hash(senha, 10);
+
+            await db.query(
+                `UPDATE usuarios
+                 SET nome=$1,
+                     senha=$2,
+                     tribo=$3,
+                     foto=$4
+                 WHERE id=$5`,
+                [
+                    nome,
+                    senhaHash,
+                    tribo,
+                    foto,
+                    id
+                ]
+            );
+
+        } else {
+
+            await db.query(
+                `UPDATE usuarios
+                 SET nome=$1,
+                     tribo=$2,
+                     foto=$3
+                 WHERE id=$4`,
+                [
+                    nome,
+                    tribo,
+                    foto,
+                    id
+                ]
+            );
 
         }
 
-        const sql = senhaHash
-
-            ? `UPDATE usuarios
-               SET nome = ?, senha = ?, tribo = ?, foto = ?
-               WHERE id = ?`
-
-            : `UPDATE usuarios
-               SET nome = ?, tribo = ?, foto = ?
-               WHERE id = ?`;
-
-        const parametros = senhaHash
-
-            ? [nome, senhaHash, tribo, foto, id]
-
-            : [nome, tribo, foto, id];
-
-        db.run(sql, parametros, function (err) {
-
-            if (err) {
-
-                return res.status(500).json({
-                    mensagem: err.message
-                });
-
-            }
-
-            res.json({
-                mensagem: "Dados atualizados com sucesso!"
-            });
-
+        res.json({
+            mensagem: "Dados atualizados com sucesso!"
         });
 
-    } catch (erro) {
+    } catch (err) {
 
         res.status(500).json({
-            mensagem: erro.message
+            mensagem: err.message
         });
 
     }
@@ -277,40 +223,36 @@ router.get("/teste", (req, res) => {
 // DELETAR CONTA
 // ===============================
 
-router.delete("/deletar/:id", (req, res) => {
+router.delete("/deletar/:id", async (req, res) => {
 
-    const { id } = req.params;
+    try {
 
+        const { id } = req.params;
 
-    db.run(
-        "DELETE FROM usuarios WHERE id = ?",
-        [id],
-        function(err) {
+        const resultado = await db.query(
+            "DELETE FROM usuarios WHERE id = $1",
+            [id]
+        );
 
-            if (err) {
+        if (resultado.rowCount === 0) {
 
-                return res.status(500).json({
-                    mensagem: err.message
-                });
-
-            }
-
-
-            if (this.changes === 0) {
-
-                return res.status(404).json({
-                    mensagem: "Usuário não encontrado."
-                });
-
-            }
-
-
-            res.json({
-                mensagem: "Conta excluída com sucesso."
+            return res.status(404).json({
+                mensagem: "Usuário não encontrado."
             });
 
         }
-    );
+
+        res.json({
+            mensagem: "Conta excluída com sucesso."
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            mensagem: err.message
+        });
+
+    }
 
 });
 module.exports = router;

@@ -1,114 +1,49 @@
-const sqlite3 = require("sqlite3").verbose();
-const fs = require("fs");
-const path = require("path");
+const { Pool } = require("pg");
 
-const pastaBanco = path.join(__dirname, "banco");
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL?.includes("render.com")
+        ? { rejectUnauthorized: false }
+        : false
+});
 
-// cria a pasta se não existir
-if (!fs.existsSync(pastaBanco)) {
-    fs.mkdirSync(pastaBanco);
+pool.connect()
+    .then(() => console.log("✅ PostgreSQL conectado!"))
+    .catch(err => console.error("❌ Erro ao conectar PostgreSQL:", err));
+
+async function criarTabelas() {
+    try {
+
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS usuarios (
+                id SERIAL PRIMARY KEY,
+                nome VARCHAR(100) UNIQUE NOT NULL,
+                senha TEXT NOT NULL,
+                tribo VARCHAR(100) NOT NULL,
+                foto TEXT
+            );
+        `);
+
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS jovens (
+                id SERIAL PRIMARY KEY,
+                nome VARCHAR(150) NOT NULL,
+                idade INTEGER,
+                endereco TEXT,
+                telefone TEXT,
+                status VARCHAR(20) DEFAULT 'Ativo',
+                tribo VARCHAR(100),
+                dataCadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        `);
+
+        console.log("✅ Tabelas criadas/verificadas!");
+
+    } catch (err) {
+        console.error("❌ Erro ao criar tabelas:", err);
+    }
 }
 
-const caminhoBanco = path.join(pastaBanco, "evg.db");
+criarTabelas();
 
-const db = new sqlite3.Database(caminhoBanco, (err) => {
-    if (err) {
-        console.error("Erro ao conectar banco:", err.message);
-    } else {
-        console.log("Banco conectado!");
-    }
-});
-
-db.serialize(() => {
-
-
-    // ===============================
-    // TABELA USUÁRIOS
-    // ===============================
-
-    db.run(`
-        CREATE TABLE IF NOT EXISTS usuarios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT UNIQUE,
-            senha TEXT,
-            tribo TEXT,
-            foto TEXT
-        )
-    `);
-
-
-
-    // Adiciona coluna foto se banco antigo
-
-    db.all("PRAGMA table_info(usuarios)", (err, columns) => {
-
-        if (err) {
-
-            console.log(err);
-            return;
-
-        }
-
-
-        const temFoto = columns.some(
-            col => col.name === "foto"
-        );
-
-
-        if (!temFoto) {
-
-            db.run(
-                "ALTER TABLE usuarios ADD COLUMN foto TEXT",
-                (err) => {
-
-                    if (err) {
-
-                        console.log(
-                            "Erro ao adicionar foto:",
-                            err
-                        );
-
-                    } else {
-
-                        console.log(
-                            "Coluna foto adicionada!"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-    });
-
-
-
-    // ===============================
-    // TABELA JOVENS
-    // ===============================
-
-    db.run(`
-        CREATE TABLE IF NOT EXISTS jovens (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL,
-            idade INTEGER,
-            endereco TEXT,
-            telefone TEXT,
-            status TEXT DEFAULT 'Ativo',
-            tribo TEXT,
-            dataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    `);
-
-
-
-    // ===============================
-    // TABELA AGENDA
-    // ===============================
-
-});
-
-
-module.exports = db;
+module.exports = pool;
