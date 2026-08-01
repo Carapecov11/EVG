@@ -1,19 +1,23 @@
 const sqlite3 = require("sqlite3").verbose();
+const fs = require("fs");
+const path = require("path");
 
-const db = new sqlite3.Database("./backend/banco/evg.db", (err) => {
+const pastaBanco = path.join(__dirname, "banco");
 
+// cria a pasta se não existir
+if (!fs.existsSync(pastaBanco)) {
+    fs.mkdirSync(pastaBanco);
+}
+
+const caminhoBanco = path.join(pastaBanco, "evg.db");
+
+const db = new sqlite3.Database(caminhoBanco, (err) => {
     if (err) {
-
         console.error("Erro ao conectar banco:", err.message);
-
     } else {
-
         console.log("Banco conectado!");
-
     }
-
 });
-
 
 db.serialize(() => {
 
