@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" id="pagina">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/principal.css">
+
+    <title data-lang="tituloLogin">
+        Caderno de EVG
+    </title>
+
+</head>
+
+
+<body>
+
+    <div class="painel">
+
+        <div class="avatar">
+
+            <img src="images/logo.png" alt="Logo FJU">
+
+        </div>
+
+        <div class="perfil-card">
+
+            <img 
+                id="fotoPerfil" 
+                src="../images/logo.png" 
+                alt="Foto de perfil">
+
+            <div class="perfil-info">
+
+                <h2 id="nomeUsuario">
+                    Usuário
+                </h2>
+
+                <p id="triboUsuario">
+                    FJU Vila Maria
+                </p>
+
+            </div>
+
+        </div>
+
+        <h1 data-lang="tituloLogin">
+
+            Caderno de EVG
+
+        </h1>
+
+        <h4 data-lang="subtituloLogin">
+
+            FJU Vila Maria
+
+        </h4>
+
+        <div class="menu">
+
+
+
+            <div 
+                class="card" 
+                onclick="window.location.href='relatorio.html'">
+
+                <span>📄</span>
+
+                <h3 data-lang="montarRelatorio">
+
+                    Montar Relatório
+
+                </h3>
+
+            </div>
+
+            <div 
+                class="card" 
+                onclick="window.location.href='cadastro-jovem.html'">
+
+                <span>👥</span>
+
+                <h3 data-lang="cadastrarJovens">
+
+                    Register Young People
+
+                </h3>
+
+
+            </div>
+
+            <div 
+                class="card" 
+                onclick="window.location.href='agenda.html'">
+
+                <span>📅</span>
+
+                <h3 data-lang="agenda">
+
+                    Agenda
+
+                </h3>
+
+            </div>
+
+            <div 
+                class="card" 
+                onclick="window.open('https://www.bibliafielcomentada.com/', '_blank')">
+
+                <span>📖</span>
+
+                <h3 data-lang="biblia">
+
+                    Bíblia
+
+                </h3>
+
+            </div>
+
+            <div 
+                class="card" 
+                onclick="window.location.href='config.html'">
+
+                <span>⚙️</span>
+
+                <h3 data-lang="configuracoes">
+
+                    Configurações
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <button 
+            class="btn-sair" 
+            onclick="sair()">
+
+            🚪
+
+            <span data-lang="sair">
+
+                Sair
+
+            </span>
+
+        </button>
+
+    </div>
+
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+
+    <script>
+
+    if (!sessionStorage.getItem("principalAtualizada")) {
+
+        sessionStorage.setItem("principalAtualizada", "true");
+        location.reload();
+
+    } else {
+
+        sessionStorage.removeItem("principalAtualizada");
+
+    }
+
+
+    const API = "https://SEU-SERVIDOR.com";
+
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    console.log("Usuário logado:", usuario);
+
+    if(usuario){
+
+        document.getElementById("nomeUsuario").innerText =
+            usuario.nome;
+
+        const idiomaAtual = localStorage.getItem("idioma") || "pt";
+
+        document.getElementById("triboUsuario").innerText =
+            usuario.tribo || idiomas[idiomaAtual].semTribo;
+
+        if(usuario.foto){
+
+            document.getElementById("fotoPerfil").src =
+                `${API}/uploads/perfis/${usuario.foto}`;
+
+        }
+
+    }
+
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+            aplicarIdioma();
+        }
+    });
+
+    function sair(){
+
+        localStorage.removeItem("usuario");
+
+
+        window.location.href = "login.html";
+
+    }
+        </script>
+
+    </body>
+
+</html>

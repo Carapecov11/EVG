@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - EVG</title>
+
+    <link rel="stylesheet" href="css/config.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="painel">
+
+        <button
+            class="btn-voltar"
+            onclick="history.back()"
+                aria-label="Voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <div class="foto-area">
+
+            <label for="fotoInput">
+
+                <img
+                    src="images/user.png"
+                    id="fotoPerfil"
+                    class="foto-perfil"
+                    alt="Foto do perfil">
+
+                <div class="editar">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+
+            </label>
+
+            <input
+                type="file"
+                id="fotoInput"
+                accept="image/*"
+                hidden>
+
+        </div>
+
+        <h2 data-lang="configTitulo">Configurações</h2>
+
+        <div class="campo">
+            <label for="nome" data-lang="nome">
+                Nome
+            </label>
+            <input
+                type="text"
+                id="nome"
+                placeholder="Digite seu nome">
+        </div>
+
+        <div class="campo">
+            <label for="senha" data-lang="senha">
+                Senha
+            </label>
+            <input
+                type="password"
+                id="senha"
+                placeholder="Digite sua senha">
+        </div>
+
+        <div class="campo">
+            <label for="tribo" data-lang="tribo">
+                Tribo
+            </label>
+
+            <select id="tribo">
+                <option value="" selected disabled>Selecione sua tribo</option>
+                <option value="Gade" data-lang="tribo-gade">Gade</option>
+                <option value="Judá" data-lang="tribo-juda">Judá</option>
+                <option value="Simeão" data-lang="tribo-simeao">Simeão</option>
+                <option value="Benjamin" data-lang="tribo-benjamin">Benjamin</option>
+                <option value="Obreiro" data-lang="tribo-obreiro">Obreiro(a)</option>
+                <option value="Coordenador" data-lang="tribo-coordenador">Coordenador(a)</option>
+            </select>
+        </div>
+
+        <div class="campo">
+
+            <label for="idioma" data-lang="idioma">
+                🌐 Idioma
+            </label>
+
+            <select id="idioma" onchange="mudarIdioma()">
+
+                <option value="pt">🇧🇷 Português</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Español</option>
+
+            </select>
+
+        </div>
+
+        <button class="salvar" id="btnSalvar">
+            <span data-lang="salvar">Salvar Alterações</span>
+        </button>
+        
+        <button class="btn-deletar" onclick="deletarConta()">
+            <span data-lang="excluir">Excluir Conta</span>
+        </button>
+
+    </div>
+
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+    <script src="js/config.js"></script>
+
+</body>
+
+</html>

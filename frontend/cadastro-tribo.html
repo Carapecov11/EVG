@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro EVG</title>
+
+    <link rel="stylesheet" href="css/cadastro-tribo.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="painel">
+
+        <button
+            class="btn-voltar"
+            onclick="history.back()"
+                aria-label="Voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h2 id="tituloTribo" data-lang="tituloTribo">
+            Tribo
+        </h2>
+
+        <form id="formCadastro">
+
+            <div class="campo">
+
+                <label for="nome" data-lang="nome">
+                    Nome
+                </label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    data-placeholder="placeholderNome"
+                    placeholder="Nome"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="idade" data-lang="idade">
+                    Idade
+                </label>
+
+                <input
+                    type="number"
+                    id="idade"
+                    min="0">
+
+            </div>
+
+            <div class="campo">
+
+                <label for="endereco" data-lang="endereco">
+                    Endereço
+                </label>
+
+                <input
+                    type="text"
+                    id="endereco"
+                    data-placeholder="placeholderEndereco"
+                    placeholder="Endereço">
+
+            </div>
+
+            <div class="campo">
+
+                <label for="telefone" data-lang="telefone">
+                    Telefone
+                </label>
+
+                <input
+                    type="text"
+                    id="telefone"
+                    data-placeholder="placeholderTelefone"
+                    placeholder="Telefone">
+
+            </div>
+
+            <div class="campo">
+
+                <label for="status" data-lang="status">
+                    Status
+                </label>
+
+                <select id="status">
+
+                    <option value="Firme" data-lang="statusFirme">
+                        🟢 Firme
+                    </option>
+
+                    <option value="Novo" data-lang="statusNovo">
+                        🟡 Novo
+                    </option>
+
+                    <option value="Afastado" data-lang="statusAfastado">
+                        🔴 Afastado
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="salvar" data-lang="salvarCadastro">
+                💾 Salvar
+            </button>
+
+        </form>
+
+        <hr>
+
+        <div class="pesquisa">
+            <input
+                type="text"
+                id="pesquisaJovem"
+                data-placeholder="placeholderPesquisarJovem"
+                placeholder="🔍 Pesquisar jovem..."
+            >
+        </div>
+
+        <h3 data-lang="jovensCadastrados">
+            Jovens Cadastrados
+        </h3>
+
+    <div class="tabela-container">
+        <table>
+
+            <thead>
+                <tr>
+                    <th data-lang="nome">Nome</th>
+                    <th data-lang="idade">Idade</th>
+                    <th data-lang="telefone">Telefone</th>
+                    <th data-lang="endereco">Endereço</th>
+                    <th data-lang="status">Status</th>
+                    <th data-lang="acoes">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="listaJovens"></tbody>
+
+        </table>
+    </div>
+
+    </div>
+
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+    <script src="js/cadastro-tribo.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title data-lang="tituloAgenda">
+        Agenda EVG
+    </title>
+
+    <link rel="stylesheet" href="css/agenda.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+        <button
+            class="btn-voltar"
+            onclick="history.back()"
+                aria-label="Voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+    <div class="painel">
+
+        <div class="titulo" data-lang="agenda">
+            📅 Agenda
+        </div>
+
+        <button class="btn-adicionar" onclick="abrirFormulario()">
+
+            ➕ <span data-lang="novoEvento">Novo Evento</span>
+
+        </button>
+
+        <div id="listaEventos" class="lista-eventos"></div>
+
+    </div>
+
+    <!-- Idiomas -->
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+    <script src="js/agenda.js"></script>
+
+    <script>
+
+        window.addEventListener("pageshow", aplicarIdioma);
+
+    </script>
+
+</body>
+
+</html>

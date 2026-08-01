@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastros - EVG</title>
+
+    <link rel="stylesheet" href="css/cadastro-jovem.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="painel">
+
+        <button
+            class="btn-voltar"
+            onclick="history.back()"
+                aria-label="Voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h2 data-lang="cadastrosTitulo">Cadastros</h2>
+
+        <p class="subtitulo" data-lang="cadastrosSubtitulo">
+            Selecione a tribo que deseja cadastrar.
+        </p>
+
+        <div class="grid">
+
+            <button class="card" onclick="abrirCadastro('gade')">
+                <img src="./images/gade.jpg" alt="Gade">
+                <span data-lang="tribo-gade">Gade</span>
+            </button>
+
+            <button class="card" onclick="abrirCadastro('juda')">
+                <img src="./images/juda.jpg" alt="Judá">
+                <span data-lang="tribo-juda">Judá</span>
+            </button>
+
+            <button class="card" onclick="abrirCadastro('simeao')">
+                <img src="./images/simeao.jpg" alt="Simeão">
+                <span data-lang="tribo-simeao">Simeão</span>
+            </button>
+
+            <button class="card" onclick="abrirCadastro('benjamin')">
+                <img src="./images/Benjamim.jpg" alt="Benjamin">
+                <span data-lang="tribo-benjamim">Benjamim</span>
+            </button>
+
+            <button class="card" onclick="abrirCadastro('obreiros')">
+                <img src="./images/Obreiro.webp" alt="Obreiros">
+                <span data-lang="tribo-obreiro">Obreiros</span>
+            </button>
+
+            <button class="card" onclick="abrirCadastro('coordenadores')">
+                <img src="./images/coordenador.webp" alt="Coordenadores">
+                <span data-lang="tribo-coordenador">Coordenadores</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+    <script src="js/cadastro-jovem.js"></script>
+
+</body>
+
+</html>

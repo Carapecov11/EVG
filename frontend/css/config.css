@@ -1,0 +1,310 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    background:
+    radial-gradient(circle at center,
+    #0d3d91 0%,
+    #071d49 45%,
+    #04112d 100%);
+
+}
+
+/* PAINEL */
+
+.painel{
+
+    width:100%;
+    max-width:430px;
+
+    background:#061a44;
+
+    border:4px solid #0c3f9e;
+
+    padding:90px 25px 30px;
+
+    position:relative;
+
+    box-shadow:
+    0 0 40px rgba(0,119,255,.4),
+    0 0 80px rgba(255,0,0,.15);
+
+}
+
+/* BOTÃO VOLTAR */
+
+.btn-voltar{
+
+    position:absolute;
+
+    top:20px;
+    left:20px;
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    border:2px solid #0c3f9e;
+
+    background:#08235a;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-voltar:hover{
+
+    background:#0c3f9e;
+
+    border-color:#d91f26;
+
+}
+
+/* FOTO */
+
+.foto-area{
+
+    display:flex;
+    justify-content:center;
+
+    margin-bottom:25px;
+
+}
+
+.foto-area label{
+
+    position:relative;
+
+    cursor:pointer;
+
+}
+
+.foto-perfil{
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid #d91f26;
+
+    background:#071d49;
+
+    box-shadow:0 0 25px rgba(217,31,38,.5);
+
+}
+
+.editar{
+
+    position:absolute;
+
+    bottom:5px;
+    right:5px;
+
+    width:35px;
+    height:35px;
+
+    border-radius:50%;
+
+    background:#d91f26;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:15px;
+
+}
+
+/* TÍTULO */
+
+h2{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin-bottom:30px;
+
+}
+
+/* CAMPOS */
+
+.campo{
+
+    margin-bottom:20px;
+
+}
+
+.campo label{
+
+    display:block;
+
+    color:white;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+}
+
+.campo input,
+.campo select{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#08235a;
+
+    border:2px solid #0c3f9e;
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.campo input::placeholder{
+
+    color:#c6d2f1;
+
+}
+
+.campo input:focus,
+.campo select:focus{
+
+    border-color:#d91f26;
+
+}
+
+/* BOTÃO SALVAR */
+
+.salvar{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius: 12px;
+
+    background:#d91f26;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.salvar:hover{
+
+    background:#ff2e37;
+
+    transform:translateY(-2px);
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:500px){
+
+    .painel{
+
+        padding:80px 20px 25px;
+
+    }
+
+    .foto-perfil{
+
+        width:110px;
+        height:110px;
+
+    }
+
+    h2{
+
+        font-size:25px;
+
+    }
+
+    .btn-voltar{
+
+        width:38px;
+        height:38px;
+
+    }
+
+}
+.btn-deletar{
+
+    width:100%;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border:2px solid #d91f26;
+
+    border-radius: 12px;
+
+    background:transparent;
+
+    color:#d91f26;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-deletar:hover{
+
+    background:#d91f26;
+
+    color:white;
+
+}

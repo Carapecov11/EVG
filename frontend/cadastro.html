@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+
+    <title>Cadastro EVG</title>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="avatar">
+            <img src="../images/logo.png" alt="Logo EVG">
+        </div>
+
+        <h1>Cadastro EVG</h1>
+        <h4>Crie sua conta</h4>
+        <br><br>
+
+        <div class="campo">
+            <input type="text" id="nome" placeholder="Nome">
+        </div>
+
+        <div class="campo">
+            <input type="password" id="senha" placeholder="Senha">
+        </div>
+
+        <div class="campo">
+            <label for="tribo" class="sr-only">Tribo</label>
+
+            <select id="tribo">
+                <option value="" selected disabled>Selecione sua tribo</option>
+                <option value="Gade">Gade</option>
+                <option value="Judá">Judá</option>
+                <option value="Simeão">Simeão</option>
+                <option value="Benjamin">Benjamin</option>
+                <option value="Obreiro">Obreiro(a)</option>
+                <option value="Coordenador">Coordenador(a)</option>
+            </select>
+        </div>
+
+        <button onclick="cadastrar()">
+            Cadastrar
+        </button>
+
+        <button class="btn-cadastro" onclick="window.location.href='login.html'">
+            Voltar para o Login
+        </button>
+
+    </div>
+
+    <script>
+
+        async function cadastrar() {
+
+            const nome = document.getElementById("nome").value;
+            const senha = document.getElementById("senha").value;
+            const tribo = document.getElementById("tribo").value;
+            const API = "https://SEU-SERVIDOR.com";
+            const resposta = await fetch(
+                `${API}/auth/cadastro`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        senha,
+                        tribo
+                    })
+                }
+            );
+
+            const dados = await resposta.json();
+
+            alert(dados.mensagem);
+
+        }
+
+    </script>
+
+</body>
+
+</html>

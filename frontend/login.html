@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login EVG</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="avatar">
+
+            <img src="images/logo.png" alt="FJU">
+
+        </div>
+
+        <h1 data-lang="tituloLogin">
+            Caderno de EVG
+        </h1>
+
+        <h4 data-lang="subtituloLogin">
+            FJU Vila Maria
+        </h4>
+
+        <br><br>
+
+        <div class="campo">
+
+            <input
+                type="text"
+                id="nome"
+                placeholder="Nome"
+                data-lang-placeholder="placeholderNome">
+
+        </div>
+
+        <div class="campo">
+
+            <input
+                type="password"
+                id="senha"
+                placeholder="Senha"
+                data-lang-placeholder="placeholderSenha">
+
+        </div>
+
+        <div class="campo">
+
+            <label
+                for="tribo"
+                class="sr-only"
+                data-lang="tribo">
+
+                Tribo
+
+            </label>
+
+            <select id="tribo">
+
+                <option
+                    value=""
+                    selected
+                    disabled
+                    data-lang="selecioneTribo">
+
+                    Selecione sua tribo
+
+                </option>
+
+                <option value="Gade">Gade</option>
+                <option value="Judá">Judá</option>
+                <option value="Simeão">Simeão</option>
+                <option value="Benjamin">Benjamin</option>
+                <option value="Obreiro">Obreiro(a)</option>
+                <option value="Coordenador">Coordenador(a)</option>
+
+            </select>
+
+        </div>
+
+        <button
+            onclick="login()"
+            data-lang="entrar">
+
+            Entrar
+
+        </button>
+
+        <button
+            class="btn-cadastro"
+            onclick="window.location.href='cadastro.html'"
+            data-lang="cadastrar">
+
+            Cadastrar
+
+        </button>
+
+    </div>
+
+    <!-- Sistema de idiomas -->
+    <script src="js/lang.js"></script>
+    <script src="js/idioma.js"></script>
+
+    <!-- Login -->
+    <script>
+
+
+    const API = "https://SEU-SERVIDOR.com";
+
+    console.log("API DO APP:", API);
+
+    aplicarIdioma();
+
+    async function login() {
+
+    const nome = document.getElementById("nome").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const tribo = document.getElementById("tribo").value;
+
+    if (!nome) {
+        alert("Digite o nome.");
+        return;
+    }
+
+    if (!senha) {
+        alert("Digite a senha.");
+        return;
+    }
+
+    if (!tribo) {
+        alert("Selecione uma tribo.");
+        return;
+    }
+
+    try {
+
+        console.log("ENVIANDO LOGIN...");
+        console.log("URL:", `${API}/auth/login`);
+
+        const resposta = await fetch(`${API}/auth/login`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                nome: nome,
+                senha: senha,
+                tribo: tribo
+
+            })
+
+        });
+
+
+        const dados = await resposta.json();
+
+        console.log("RESPOSTA:", dados);
+
+
+        if (resposta.ok) {
+
+            alert("Login realizado com sucesso!");
+
+            localStorage.setItem(
+                "usuario",
+                JSON.stringify(dados.usuario)
+            );
+
+            window.location.href = "principal.html";
+
+
+        } else {
+
+            alert(
+                dados.mensagem || "Usuário ou senha incorretos."
+            );
+
+        }
+
+
+    } catch (erro) {
+
+        console.error("ERRO LOGIN:", erro);
+
+        alert(
+            "Erro ao conectar com o servidor.\n\n" +
+            erro.message
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

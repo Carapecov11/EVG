@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Relatórios - EVG</title>
+
+    <link rel="stylesheet" href="css/relatorio.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="painel">
+
+    <button
+        class="btn-voltar"
+        onclick="history.back()"
+        aria-label="Voltar">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <h1>
+
+        <i class="fa-solid fa-file-pdf"></i>
+
+        <span data-lang="relatoriosTitulo">
+            Relatórios
+        </span>
+
+    </h1>
+
+    <p class="subtitulo"
+       data-lang="relatoriosSubtitulo">
+
+        Selecione a tribo para gerar o relatório.
+
+    </p>
+
+    <div class="tribos">
+
+        <div
+            class="tribo-card"
+            data-tribo="gade">
+
+            <img
+                src="./images/gade.jpg"
+                alt="Gade">
+
+            <span>
+                Gade
+            </span>
+
+        </div>
+
+        <div
+            class="tribo-card"
+            data-tribo="juda">
+
+            <img
+                src="./images/juda.jpg"
+                alt="Judá">
+
+            <span>
+                Judá
+            </span>
+
+        </div>
+
+        <div
+            class="tribo-card"
+            data-tribo="simeao">
+
+            <img
+                src="./images/simeao.jpg"
+                alt="Simeão">
+
+            <span>
+                Simeão
+            </span>
+
+        </div>
+
+        <div
+            class="tribo-card"
+            data-tribo="benjamin">
+
+            <img
+                src="./images/Benjamim.jpg"
+                alt="Benjamin">
+
+            <span>
+                Benjamin
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="pesquisa">
+
+        <input
+
+            type="text"
+
+            id="pesquisa"
+
+            data-placeholder="pesquisarRelatorio"
+
+            placeholder="🔍 Pesquisar jovem..."
+
+        >
+
+    </div>
+
+    <div class="info">
+
+        <h2
+            id="tituloTribo"
+            data-lang="nenhumaTriboSelecionada">
+
+            Nenhuma tribo selecionada
+
+        </h2>
+
+        <span
+            id="totalJovens">
+
+            Total: 0 jovens
+
+        </span>
+
+    </div>
+
+    <!-- LISTA -->
+
+    <div
+        class="listaJovens"
+        id="listaJovens">
+
+        <p data-lang="selecionarTriboJovens">
+
+            Selecione uma tribo para visualizar os jovens.
+
+        </p>
+
+    </div>
+
+    <!-- BOTÕES -->
+
+    <div class="acoes">
+
+        <button id="selecionarTodos">
+
+            <i class="fa-solid fa-check-double"></i>
+
+            <span data-lang="selecionarTodos">
+
+                Selecionar Todos
+
+            </span>
+
+        </button>
+
+        <button id="desmarcarTodos">
+
+            <i class="fa-solid fa-xmark"></i>
+
+            <span data-lang="desmarcarTodos">
+
+                Desmarcar Todos
+
+            </span>
+
+        </button>
+
+    </div>
+
+    <!-- RODAPÉ -->
+
+    <div class="rodape">
+
+        <div class="contador">
+
+            <span data-lang="selecionados">
+
+                Selecionados:
+
+            </span>
+
+            <span id="quantidadeSelecionados">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="botoes">
+
+            <button
+
+                class="btnPdf"
+
+                id="gerarPDF">
+
+                <i class="fa-solid fa-file-pdf"></i>
+
+                <span data-lang="gerarPDF">
+
+                    Gerar PDF
+
+                </span>
+
+            </button>
+
+            <button
+
+                class="btnWhatsapp"
+
+                id="compartilhar">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                <span data-lang="compartilharWhatsapp">
+
+                    Compartilhar no WhatsApp
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+        <!-- jsPDF -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+        <!-- AutoTable -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+        <script src="js/lang.js"></script>
+        <script src="js/idioma.js"></script>
+        <script src="https://unpkg.com/@capacitor/filesystem"></script>
+        <script src="https://unpkg.com/@capacitor/share"></script>
+        <script src="js/relatorio.js"></script>
+
+    </body>
+
+</html>

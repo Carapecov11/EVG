@@ -1,0 +1,85 @@
+.splash {
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
+
+    animation: sair 1s forwards;
+    animation-delay: 2.5s;
+
+}
+
+
+.splash img {
+
+    width: 150px;
+
+    animation:
+    aparecer 1.5s ease,
+    pulsar 2s infinite;
+
+}
+
+
+.splash h1 {
+
+    color:white;
+
+    margin-top:20px;
+
+}
+
+
+.splash p {
+
+    color:white;
+
+}
+
+
+@keyframes aparecer {
+
+    from {
+
+        opacity:0;
+        transform:scale(.5);
+
+    }
+
+    to {
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+
+@keyframes pulsar {
+
+    50% {
+
+        transform:scale(1.05);
+
+    }
+
+}
+
+
+@keyframes sair {
+
+    to {
+
+        opacity:0;
+        visibility:hidden;
+
+    }
+
+}

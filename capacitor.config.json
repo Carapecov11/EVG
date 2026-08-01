@@ -1,0 +1,9 @@
+{
+  "appId": "br.com.fju.evg",
+  "appName": "EVG",
+  "webDir": "frontend",
+  "server": {
+    "cleartext": true,
+    "androidScheme": "http"
+  }
+}

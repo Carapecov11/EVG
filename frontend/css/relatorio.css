@@ -1,0 +1,673 @@
+ /* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    background:
+    radial-gradient(circle at center,
+    #0d3d91 0%,
+    #071d49 45%,
+    #04112d 100%);
+
+}
+
+/* ==========================================
+   PAINEL
+========================================== */
+
+.painel{
+
+    width:100%;
+    max-width:780px;
+
+    background:#061a44;
+
+    border:4px solid #0c3f9e;
+
+    padding:80px 35px 35px;
+
+    position:relative;
+
+    box-shadow:
+    0 0 40px rgba(0,119,255,.35),
+    0 0 80px rgba(255,0,0,.12);
+
+}
+
+/* ==========================================
+   BOTÃO VOLTAR
+========================================== */
+
+.btn-voltar{
+
+    position:absolute;
+
+    top:25px;
+    left:25px;
+
+    width:46px;
+    height:46px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border:2px solid #0c3f9e;
+
+    background:#08235a;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-voltar:hover{
+
+    background:#0c3f9e;
+
+    border-color:#d91f26;
+
+}
+
+/* ==========================================
+   TÍTULO
+========================================== */
+
+h1{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:46px;
+
+    margin-bottom:10px;
+
+}
+
+.subtitulo{
+
+    text-align:center;
+
+    color:#cfd7eb;
+
+    font-size:22px;
+
+    margin-bottom:40px;
+
+}
+
+/* ==========================================
+   TRIBOS
+========================================== */
+
+.tribos{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+.tribo-card{
+
+    background:#183b8f;
+
+    border:2px solid #1f56c9;
+
+    border-radius:18px;
+
+    padding:25px 15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    min-height:180px;
+
+}
+
+.tribo-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#ff2c34;
+
+}
+
+.tribo-card.ativo{
+
+    border-color:#ff2c34;
+
+    box-shadow:0 0 25px rgba(255,44,52,.45);
+
+}
+
+.tribo-card img{
+
+    width:90px;
+    height:90px;
+
+    border-radius: 8%;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:0 auto 18px;
+
+}
+
+.tribo-card span{
+
+    display:block;
+
+    width:100%;
+
+    text-align:center;
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
+/* ==========================================
+   INFO
+========================================== */
+
+.info{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.info h2{
+
+    color:white;
+
+    margin-bottom:8px;
+
+}
+
+.info span{
+
+    color:#cfd7eb;
+
+}
+
+/* ==========================================
+   PESQUISA
+========================================== */
+
+.pesquisa{
+
+    margin-bottom:25px;
+
+}
+
+.pesquisa input{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#08235a;
+
+    border:2px solid #0c3f9e;
+
+    color:white;
+
+    font-size:17px;
+
+    outline:none;
+
+}
+
+.pesquisa input::placeholder{
+
+    color:#cfd7eb;
+
+}
+
+.pesquisa input:focus{
+
+    border-color:#ff2c34;
+
+}
+/* ==========================================
+   LISTA DE JOVENS
+========================================== */
+
+.listaJovens{
+
+    background:#08235a;
+
+    border:2px solid #0c3f9e;
+
+    border-radius:12px;
+
+    max-height:320px;
+
+    overflow-y:auto;
+
+    padding:12px;
+
+    margin-bottom:25px;
+
+}
+
+/* Scroll */
+
+.listaJovens::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.listaJovens::-webkit-scrollbar-track{
+
+    background:#061a44;
+
+}
+
+.listaJovens::-webkit-scrollbar-thumb{
+
+    background:#0c3f9e;
+
+    border-radius:10px;
+
+}
+
+.listaJovens::-webkit-scrollbar-thumb:hover{
+
+    background:#d91f26;
+
+}
+
+/* ==========================================
+   JOVEM
+========================================== */
+
+.jovem{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:16px;
+
+    margin-bottom:12px;
+
+    background:#173681;
+
+    border:2px solid transparent;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.jovem:hover{
+
+    border-color:#d91f26;
+
+    transform:translateY(-2px);
+
+}
+
+.jovem:last-child{
+
+    margin-bottom:0;
+
+}
+
+.checkJovem{
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:#d91f26;
+
+    cursor:pointer;
+
+}
+
+.jovem label{
+
+    flex:1;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    -webkit-user-select:none;
+    user-select:none;
+
+    font-weight:bold;
+
+}
+
+/* ==========================================
+   AÇÕES
+========================================== */
+
+.acoes{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.acoes button{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#selecionarTodos{
+
+    background:#0c3f9e;
+
+}
+
+#selecionarTodos:hover{
+
+    background:#1358d1;
+
+}
+
+#desmarcarTodos{
+
+    background:#d91f26;
+
+}
+
+#desmarcarTodos:hover{
+
+    background:#ff3038;
+
+}
+
+/* ==========================================
+   RODAPÉ
+========================================== */
+
+.rodape{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.contador{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+/* ==========================================
+   BOTÕES
+========================================== */
+
+.botoes{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.btnPdf,
+.btnWhatsapp{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btnPdf{
+
+    background:#d91f26;
+
+}
+
+.btnPdf:hover{
+
+    background:#ff3038;
+
+    transform:translateY(-2px);
+
+}
+
+.btnWhatsapp{
+
+    background:#25D366;
+
+}
+
+.btnWhatsapp:hover{
+
+    background:#1ebe5a;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   MENSAGEM PADRÃO
+========================================== */
+
+.listaJovens p{
+
+    text-align:center;
+
+    color:white;
+
+    padding:35px 10px;
+
+    font-size:17px;
+
+}
+
+/* ==========================================
+   RESPONSIVO
+========================================== */
+
+@media(max-width:768px){
+
+    .painel{
+
+        max-width:100%;
+
+        padding:75px 20px 25px;
+
+    }
+
+    h1{
+
+        font-size:34px;
+
+    }
+
+    .subtitulo{
+
+        font-size:17px;
+
+    }
+
+    .tribos{
+
+        gap:12px;
+
+    }
+
+    .tribo-card{
+
+        padding:18px;
+
+    }
+
+    .tribo-card img{
+
+        width:70px;
+
+        height:70px;
+
+    }
+
+    .tribo-card span{
+
+        font-size:20px;
+
+    }
+
+    .acoes{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .jovem{
+
+        padding:14px;
+
+    }
+
+    .jovem label{
+
+        font-size:16px;
+
+    }
+
+    .btnPdf,
+    .btnWhatsapp{
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .tribos{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .tribo-card img{
+
+        width:55px;
+
+        height:55px;
+
+    }
+
+    .tribo-card span{
+
+        font-size:17px;
+
+    }
+
+    h1{
+
+        font-size:28px;
+
+    }
+
+}
