@@ -132,7 +132,7 @@ function verificarEventos(eventos) {
 
         const agora = new Date();
 
-        const dataHoje = agora.toLocaleDateString("pt-BR");
+        const dataHoje = agora.toISOString().split("T")[0];
 
         const horaAgora =
             agora.getHours().toString().padStart(2, "0")
@@ -165,15 +165,45 @@ async function abrirFormulario() {
 
     if (!titulo) return;
 
+
     const descricao = prompt("Descrição:");
 
-    const data = prompt("Data (dd/mm/aaaa):");
+
+    // cria seletor de data
+    const dataInput = document.createElement("input");
+    dataInput.type = "date";
+
+    dataInput.style.position = "fixed";
+    dataInput.style.left = "50%";
+    dataInput.style.top = "50%";
+    dataInput.style.transform = "translate(-50%, -50%)";
+    dataInput.style.zIndex = "9999";
+
+    document.body.appendChild(dataInput);
+
+    dataInput.focus();
+
+
+    await new Promise(resolve => {
+
+        dataInput.onchange = resolve;
+
+    });
+
+
+    const data = dataInput.value;
+
+    dataInput.remove();
+
 
     if (!data) return;
+
 
     const hora = prompt("Hora:");
 
     const local = prompt("Local:");
+
+
 
     const resposta = await fetch(`${API}/agenda/cadastrar`, {
 
@@ -198,9 +228,12 @@ async function abrirFormulario() {
 
     });
 
+
     const resultado = await resposta.json();
 
+
     alert(resultado.mensagem);
+
 
     carregarEventos();
 
