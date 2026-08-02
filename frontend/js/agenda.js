@@ -307,6 +307,7 @@ ${descricao}
     window.open(url, "_blank");
 
 }
+
 function escolherData() {
 
     return new Promise((resolve) => {
