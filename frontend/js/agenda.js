@@ -36,6 +36,14 @@ Começa agora!`,
 
 }
 
+function formatarData(data) {
+
+    const dataObj = new Date(data);
+
+    return dataObj.toLocaleDateString("pt-BR");
+
+}
+
 async function carregarEventos() {
 
     try {
@@ -72,7 +80,7 @@ async function carregarEventos() {
 
                     <h3>${evento.titulo}</h3>
 
-                    <p>📅 ${evento.data}</p>
+                    <p>📅 ${formatarData(evento.data)}</p>
 
                     <p>🕒 ${evento.hora || "-"}</p>
 
@@ -169,31 +177,7 @@ async function abrirFormulario() {
     const descricao = prompt("Descrição:");
 
 
-    // cria seletor de data
-    const dataInput = document.createElement("input");
-    dataInput.type = "date";
-
-    dataInput.style.position = "fixed";
-    dataInput.style.left = "50%";
-    dataInput.style.top = "50%";
-    dataInput.style.transform = "translate(-50%, -50%)";
-    dataInput.style.zIndex = "9999";
-
-    document.body.appendChild(dataInput);
-
-    dataInput.focus();
-
-
-    await new Promise(resolve => {
-
-        dataInput.onchange = resolve;
-
-    });
-
-
-    const data = dataInput.value;
-
-    dataInput.remove();
+    const data = await escolherData();
 
 
     if (!data) return;
@@ -311,7 +295,7 @@ function enviarWhatsapp(titulo, data, hora, local, descricao) {
     const mensagem = `
 📅 *${titulo}*
 
-📆 Data: ${data}
+📆 Data: ${formatarData(data)}
 🕒 Hora: ${hora}
 📍 Local: ${local}
 
@@ -321,6 +305,42 @@ ${descricao}
     const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
 
     window.open(url, "_blank");
+
+}
+function escolherData() {
+
+    return new Promise((resolve) => {
+
+        const input = document.createElement("input");
+
+        input.type = "date";
+
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+
+        document.body.appendChild(input);
+
+
+        input.onchange = () => {
+
+            resolve(input.value);
+
+            input.remove();
+
+        };
+
+
+        if (input.showPicker) {
+
+            input.showPicker();
+
+        } else {
+
+            input.click();
+
+        }
+
+    });
 
 }
 
