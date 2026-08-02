@@ -11,7 +11,9 @@ pool.connect()
     .then(() => console.log("✅ PostgreSQL conectado!"))
     .catch(err => console.error("❌ Erro ao conectar PostgreSQL:", err));
 
+
 async function criarTabelas() {
+
     try {
 
         await pool.query(`
@@ -23,6 +25,7 @@ async function criarTabelas() {
                 foto TEXT
             );
         `);
+
 
         await pool.query(`
             CREATE TABLE IF NOT EXISTS jovens (
@@ -37,13 +40,32 @@ async function criarTabelas() {
             );
         `);
 
+
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS agenda (
+                id SERIAL PRIMARY KEY,
+                titulo VARCHAR(150) NOT NULL,
+                descricao TEXT,
+                data DATE NOT NULL,
+                hora TIME,
+                local VARCHAR(150)
+            );
+        `);
+
+
         console.log("✅ Tabelas criadas/verificadas!");
 
+
     } catch (err) {
+
         console.error("❌ Erro ao criar tabelas:", err);
+
     }
+
 }
 
+
 criarTabelas();
+
 
 module.exports = pool;

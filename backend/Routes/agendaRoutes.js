@@ -8,33 +8,27 @@ const router = express.Router();
 // LISTAR EVENTOS
 // ===============================
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
 
-    db.all(
+    try {
 
-        "SELECT * FROM agenda ORDER BY data ASC, hora ASC",
+        const resultado = await db.query(
+            "SELECT * FROM agenda ORDER BY data ASC, hora ASC"
+        );
 
-        [],
+        res.json({
+            sucesso: true,
+            eventos: resultado.rows
+        });
 
-        (err, eventos) => {
+    } catch (err) {
 
-            if (err) {
+        res.status(500).json({
+            sucesso: false,
+            mensagem: err.message
+        });
 
-                return res.status(500).json({
-                    sucesso: false,
-                    mensagem: err.message
-                });
-
-            }
-
-            res.json({
-                sucesso: true,
-                eventos
-            });
-
-        }
-
-    );
+    }
 
 });
 
@@ -43,7 +37,7 @@ router.get("/", (req, res) => {
 // CADASTRAR EVENTO
 // ===============================
 
-router.post("/cadastrar", (req, res) => {
+router.post("/cadastrar", async (req, res) => {
 
     const {
         titulo,
@@ -52,6 +46,7 @@ router.post("/cadastrar", (req, res) => {
         hora,
         local
     } = req.body;
+
 
     if (!titulo || !data) {
 
@@ -62,42 +57,46 @@ router.post("/cadastrar", (req, res) => {
 
     }
 
-    db.run(
 
-        `INSERT INTO agenda
-        (titulo, descricao, data, hora, local)
-        VALUES (?, ?, ?, ?, ?)`,
+    try {
 
-        [
-            titulo,
-            descricao,
-            data,
-            hora,
-            local
-        ],
+        const resultado = await db.query(
 
-        function(err){
+            `
+            INSERT INTO agenda
+            (titulo, descricao, data, hora, local)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING id
+            `,
 
-            if(err){
+            [
+                titulo,
+                descricao,
+                data,
+                hora,
+                local
+            ]
 
-                return res.status(500).json({
-                    sucesso:false,
-                    mensagem:err.message
-                });
+        );
 
-            }
 
-            res.json({
+        res.json({
 
-                sucesso:true,
-                mensagem:"Evento cadastrado com sucesso.",
-                id:this.lastID
+            sucesso: true,
+            mensagem: "Evento cadastrado com sucesso.",
+            id: resultado.rows[0].id
 
-            });
+        });
 
-        }
 
-    );
+    } catch(err) {
+
+        res.status(500).json({
+            sucesso:false,
+            mensagem:err.message
+        });
+
+    }
 
 });
 
@@ -106,7 +105,7 @@ router.post("/cadastrar", (req, res) => {
 // ATUALIZAR EVENTO
 // ===============================
 
-router.put("/atualizar/:id", (req, res) => {
+router.put("/atualizar/:id", async (req, res) => {
 
     const { id } = req.params;
 
@@ -118,47 +117,50 @@ router.put("/atualizar/:id", (req, res) => {
         local
     } = req.body;
 
-    db.run(
 
-        `UPDATE agenda
-        SET
-            titulo = ?,
-            descricao = ?,
-            data = ?,
-            hora = ?,
-            local = ?
-        WHERE id = ?`,
+    try {
 
-        [
-            titulo,
-            descricao,
-            data,
-            hora,
-            local,
-            id
-        ],
+        await db.query(
 
-        function(err){
+            `
+            UPDATE agenda
+            SET
+                titulo = $1,
+                descricao = $2,
+                data = $3,
+                hora = $4,
+                local = $5
+            WHERE id = $6
+            `,
 
-            if(err){
+            [
+                titulo,
+                descricao,
+                data,
+                hora,
+                local,
+                id
+            ]
 
-                return res.status(500).json({
-                    sucesso:false,
-                    mensagem:err.message
-                });
+        );
 
-            }
 
-            res.json({
+        res.json({
 
-                sucesso:true,
-                mensagem:"Evento atualizado com sucesso."
+            sucesso:true,
+            mensagem:"Evento atualizado com sucesso."
 
-            });
+        });
 
-        }
 
-    );
+    } catch(err){
+
+        res.status(500).json({
+            sucesso:false,
+            mensagem:err.message
+        });
+
+    }
 
 });
 
@@ -167,46 +169,52 @@ router.put("/atualizar/:id", (req, res) => {
 // DELETAR EVENTO
 // ===============================
 
-router.delete("/deletar/:id", (req, res) => {
+router.delete("/deletar/:id", async (req,res)=>{
 
     const { id } = req.params;
 
-    db.run(
 
-        "DELETE FROM agenda WHERE id = ?",
+    try {
 
-        [id],
+        const resultado = await db.query(
 
-        function(err){
+            "DELETE FROM agenda WHERE id = $1",
 
-            if(err){
+            [id]
 
-                return res.status(500).json({
-                    sucesso:false,
-                    mensagem:err.message
-                });
+        );
 
-            }
 
-            if(this.changes === 0){
+        if(resultado.rowCount === 0){
 
-                return res.status(404).json({
-                    sucesso:false,
-                    mensagem:"Evento não encontrado."
-                });
+            return res.status(404).json({
 
-            }
-
-            res.json({
-
-                sucesso:true,
-                mensagem:"Evento excluído com sucesso."
+                sucesso:false,
+                mensagem:"Evento não encontrado."
 
             });
 
         }
 
-    );
+
+        res.json({
+
+            sucesso:true,
+            mensagem:"Evento excluído com sucesso."
+
+        });
+
+
+    } catch(err){
+
+        res.status(500).json({
+
+            sucesso:false,
+            mensagem:err.message
+
+        });
+
+    }
 
 });
 
@@ -215,7 +223,7 @@ router.delete("/deletar/:id", (req, res) => {
 // TESTE
 // ===============================
 
-router.get("/teste", (req, res) => {
+router.get("/teste",(req,res)=>{
 
     res.send("AGENDA FUNCIONANDO");
 
