@@ -169,13 +169,6 @@ function verificarEventos(eventos) {
 
 async function abrirFormulario() {
 
-    const titulo = prompt("Título:");
-
-    if (!titulo) return;
-
-
-    const descricao = prompt("Descrição:");
-
 
     const data = await escolherData();
 
@@ -183,10 +176,16 @@ async function abrirFormulario() {
     if (!data) return;
 
 
+    const titulo = prompt("Título:");
+
+    if (!titulo) return;
+
+
+    const descricao = prompt("Descrição:");
+
     const hora = prompt("Hora:");
 
     const local = prompt("Local:");
-
 
 
     const resposta = await fetch(`${API}/agenda/cadastrar`, {
@@ -215,9 +214,7 @@ async function abrirFormulario() {
 
     const resultado = await resposta.json();
 
-
     alert(resultado.mensagem);
-
 
     carregarEventos();
 
@@ -318,6 +315,7 @@ function escolherData() {
 
         input.style.position = "fixed";
         input.style.opacity = "0";
+        input.style.pointerEvents = "none";
 
         document.body.appendChild(input);
 
@@ -331,15 +329,7 @@ function escolherData() {
         };
 
 
-        if (input.showPicker) {
-
-            input.showPicker();
-
-        } else {
-
-            input.click();
-
-        }
+        input.click();
 
     });
 
