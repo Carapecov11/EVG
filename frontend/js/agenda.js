@@ -1,30 +1,27 @@
 const API = "https://evg-api-3u5m.onrender.com";
+const token = localStorage.getItem("token");
 
 const listaEventos = document.getElementById("listaEventos");
 
 async function solicitarPermissao() {
 
     if (!("Notification" in window)) {
-        
         return;
-
     }
 
     if (Notification.permission === "default") {
-
         await Notification.requestPermission();
-
     }
 
 }
 
 solicitarPermissao();
 
-function enviarNotificacao(evento){
+function enviarNotificacao(evento) {
 
-    if(Notification.permission !== "granted") return;
+    if (Notification.permission !== "granted") return;
 
-    new Notification("📅 EVG Agenda",{
+    new Notification("📅 EVG Agenda", {
 
         body:
 `${evento.titulo}
@@ -33,7 +30,7 @@ function enviarNotificacao(evento){
 
 Começa agora!`,
 
-        icon:"images/logo.png"
+        icon: "images/logo.png"
 
     });
 
@@ -43,7 +40,14 @@ async function carregarEventos() {
 
     try {
 
-        const resposta = await fetch(`${API}/agenda`);
+        const resposta = await fetch(`${API}/agenda`, {
+
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+
+        });
+
         const dados = await resposta.json();
 
         listaEventos.innerHTML = "";
@@ -110,37 +114,38 @@ async function carregarEventos() {
 
         });
 
+        verificarEventos(dados.eventos);
+
     }
 
     catch (erro) {
 
-        console.error(erro);
-
-        verificarEventos(dados.eventos);
+        console.error("Erro ao carregar eventos:", erro);
 
     }
+
 }
 
-function verificarEventos(eventos){
+function verificarEventos(eventos) {
 
-    setInterval(()=>{
+    setInterval(() => {
 
         const agora = new Date();
 
         const dataHoje = agora.toLocaleDateString("pt-BR");
 
         const horaAgora =
-            agora.getHours().toString().padStart(2,"0")
+            agora.getHours().toString().padStart(2, "0")
             + ":"
-            + agora.getMinutes().toString().padStart(2,"0");
+            + agora.getMinutes().toString().padStart(2, "0");
 
-        eventos.forEach(evento=>{
+        eventos.forEach(evento => {
 
-            if(
+            if (
                 evento.data === dataHoje &&
                 evento.hora === horaAgora &&
                 !evento.notificado
-            ){
+            ) {
 
                 enviarNotificacao(evento);
 
@@ -150,7 +155,7 @@ function verificarEventos(eventos){
 
         });
 
-    },60000);
+    }, 60000);
 
 }
 
@@ -176,7 +181,8 @@ async function abrirFormulario() {
 
         headers: {
 
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
 
         },
 
@@ -206,7 +212,11 @@ async function excluirEvento(id) {
 
     const resposta = await fetch(`${API}/agenda/deletar/${id}`, {
 
-        method: "DELETE"
+        method: "DELETE",
+
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
 
     });
 
@@ -238,7 +248,8 @@ async function editarEvento(id) {
 
         headers: {
 
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
 
         },
 
@@ -262,8 +273,7 @@ async function editarEvento(id) {
 
 }
 
-
-function enviarWhatsapp(titulo, data, hora, local, descricao){
+function enviarWhatsapp(titulo, data, hora, local, descricao) {
 
     const mensagem = `
 📅 *${titulo}*
@@ -281,7 +291,7 @@ ${descricao}
 
 }
 
-function voltar(){
+function voltar() {
 
     window.location.href = "principal.html";
 
