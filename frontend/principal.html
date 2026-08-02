@@ -185,10 +185,9 @@
         document.getElementById("triboUsuario").innerText =
             usuario.tribo || idiomas[idiomaAtual].semTribo;
 
-        if(usuario.foto){
+        if (usuario.foto) {
 
-            document.getElementById("fotoPerfil").src =
-                `${API}/uploads/perfis/${usuario.foto}`;
+            document.getElementById("fotoPerfil").src = usuario.foto;
 
         }
 

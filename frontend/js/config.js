@@ -31,7 +31,7 @@ document.getElementById("tribo").value = usuario.tribo || "";
 if (usuario.foto) {
 
     fotoAtual = usuario.foto;
-    fotoPerfil.src = `${API}/uploads/perfis/${fotoAtual}`;
+    fotoPerfil.src = fotoAtual;
 
 }
 
@@ -60,11 +60,17 @@ fotoInput.addEventListener("change", async function () {
 
         const resultado = await resposta.json();
 
-        // Guarda o nome da foto
-        fotoAtual = resultado.foto;
+        console.log("Resposta do upload:", resultado);
 
-        // Atualiza a imagem
-        fotoPerfil.src = `${API}/uploads/perfis/${fotoAtual}`;
+        if (!resposta.ok) {
+            alert(resultado.mensagem);
+            return;
+        }
+
+        fotoAtual = resultado.foto;
+        fotoPerfil.src = fotoAtual;
+
+        console.log("URL salva:", fotoAtual);
 
         alert("Foto alterada com sucesso!");
 
