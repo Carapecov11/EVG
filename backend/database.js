@@ -44,6 +44,6 @@ async function criarTabelas() {
     }
 }
 
-criarTabelas();ma
+criarTabelas();
 
 module.exports = pool;

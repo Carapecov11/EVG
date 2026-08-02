@@ -1,21 +1,14 @@
-require("dotenv").config();
-
-const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const { exec } = require("child_process");
 
 
-const pastaBackup = path.join(
-    __dirname,
-    "../backups"
-);
+const pastaBackup = path.join(__dirname, "backups");
 
 
-// cria pasta se não existir
 if (!fs.existsSync(pastaBackup)) {
     fs.mkdirSync(pastaBackup, { recursive: true });
 }
-
 
 
 function limparBackupsAntigos() {
@@ -28,7 +21,7 @@ function limparBackupsAntigos() {
                 path.join(pastaBackup, arquivo)
             ).mtime
         }))
-        .sort((a, b) => b.tempo - a.tempo);
+        .sort((a,b)=> b.tempo - a.tempo);
 
 
     const limite = 30;
@@ -46,14 +39,12 @@ function limparBackupsAntigos() {
             );
 
             console.log(
-                "🗑️ Backup antigo removido:",
+                "🗑️ Backup removido:",
                 arquivo.nome
             );
 
         });
-
 }
-
 
 
 
@@ -63,20 +54,17 @@ function criarBackup() {
     if (!process.env.DATABASE_URL) {
 
         console.error(
-            "❌ DATABASE_URL não encontrada no .env"
+            "❌ DATABASE_URL não encontrada"
         );
 
         return;
-
     }
-
 
 
     const data = new Date()
         .toISOString()
-        .replace(/:/g, "-")
+        .replace(/:/g,"-")
         .split(".")[0];
-
 
 
     const arquivo = path.join(
@@ -85,24 +73,21 @@ function criarBackup() {
     );
 
 
-
-    const comando = 
+    const comando =
         `pg_dump "${process.env.DATABASE_URL}" > "${arquivo}"`;
-
 
 
     console.log("Criando backup...");
     console.log(arquivo);
 
 
+    exec(comando,(erro)=>{
 
-    exec(comando, (erro) => {
 
-
-        if (erro) {
+        if(erro){
 
             console.error(
-                "❌ Erro ao criar backup:"
+                "❌ Erro no backup:"
             );
 
             console.error(
@@ -114,31 +99,18 @@ function criarBackup() {
         }
 
 
-
         console.log(
-            "✅ Backup criado com sucesso!"
+            "✅ Backup criado!"
         );
 
 
         limparBackupsAntigos();
 
-
     });
-
 
 }
 
 
 
-
-// executa ao iniciar
+// executa uma vez
 criarBackup();
-
-
-
-// backup automático a cada 24 horas
-setInterval(() => {
-
-    criarBackup();
-
-}, 24 * 60 * 60 * 1000);

@@ -3,11 +3,12 @@ const db = require("../database");
 
 const router = express.Router();
 
+
 // ===============================
 // CADASTRAR JOVEM
 // ===============================
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 
     const {
         nome,
@@ -18,94 +19,166 @@ router.post("/", (req, res) => {
         tribo
     } = req.body;
 
-    db.run(
-        `INSERT INTO jovens
-        (nome, idade, endereco, telefone, status, tribo)
-        VALUES (?, ?, ?, ?, ?, ?)`,
-        [nome, idade, endereco, telefone, status, tribo],
-        function (err) {
 
-            if (err) {
-                return res.status(500).json({
-                    erro: err.message
-                });
-            }
+    try {
 
-            res.json({
-                sucesso: true,
-                id: this.lastID
-            });
+        const resultado = await db.query(
+            `
+            INSERT INTO jovens
+            (nome, idade, endereco, telefone, status, tribo)
+            VALUES ($1,$2,$3,$4,$5,$6)
+            RETURNING id
+            `,
+            [
+                nome,
+                idade,
+                endereco,
+                telefone,
+                status,
+                tribo
+            ]
+        );
 
-        }
-    );
 
-});
+        res.json({
 
-router.get("/", (req, res) => {
+            sucesso:true,
+            id: resultado.rows[0].id
 
-    db.all(
-        "SELECT * FROM jovens ORDER BY nome",
-        [],
-        (err, rows) => {
+        });
 
-            if (err) {
-                console.error(err);
-                return res.status(500).json({
-                    erro: err.message
-                });
-            }
 
-            res.json(rows);
+    } catch(err){
 
-        }
-    );
+        console.error(err);
+
+        res.status(500).json({
+            erro:err.message
+        });
+
+    }
 
 });
 
-router.get("/:tribo", (req, res) => {
 
-    const tribo = req.params.tribo;
 
-    db.all(
-        "SELECT * FROM jovens WHERE tribo = ? ORDER BY nome",
-        [tribo],
-        (err, rows) => {
 
-            if (err) {
-                console.error("ERRO GET JOVENS:", err);
-                return res.status(500).json(err);
-            }
+// ===============================
+// LISTAR TODOS
+// ===============================
 
-            res.json(rows);
+router.get("/", async (req,res)=>{
 
-        }
-    );
+
+    try {
+
+        const resultado = await db.query(
+            "SELECT * FROM jovens ORDER BY nome"
+        );
+
+
+        res.json(resultado.rows);
+
+
+    }catch(err){
+
+        console.error(err);
+
+        res.status(500).json({
+            erro:err.message
+        });
+
+    }
+
 
 });
+
+
+
+
+// ===============================
+// LISTAR POR TRIBO
+// ===============================
+
+router.get("/:tribo", async(req,res)=>{
+
+
+    try {
+
+
+        const resultado = await db.query(
+
+            "SELECT * FROM jovens WHERE tribo=$1 ORDER BY nome",
+
+            [
+                req.params.tribo
+            ]
+
+        );
+
+
+        res.json(resultado.rows);
+
+
+
+    }catch(err){
+
+        console.error(err);
+
+        res.status(500).json({
+            erro:err.message
+        });
+
+    }
+
+
+});
+
+
+
+
 // ===============================
 // EXCLUIR JOVEM
 // ===============================
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async(req,res)=>{
 
-    db.run(
-        "DELETE FROM jovens WHERE id = ?",
-        [req.params.id],
-        function(err) {
 
-            if (err) {
-                return res.status(500).json({
-                    erro: err.message
-                });
-            }
+    try {
 
-            res.json({
-                sucesso: true
-            });
 
-        }
-    );
+        await db.query(
+
+            "DELETE FROM jovens WHERE id=$1",
+
+            [
+                req.params.id
+            ]
+
+        );
+
+
+        res.json({
+            sucesso:true
+        });
+
+
+
+    }catch(err){
+
+
+        console.error(err);
+
+
+        res.status(500).json({
+            erro:err.message
+        });
+
+
+    }
+
 
 });
+
 
 module.exports = router;

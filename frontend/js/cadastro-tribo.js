@@ -1,3 +1,5 @@
+console.log("CADASTRO-TRIBO JS CARREGOU");
+
 const API = "https://evg-api-3u5m.onrender.com";
 
 const params = new URLSearchParams(window.location.search);
@@ -61,52 +63,66 @@ async function carregarJovens() {
 
 }
 
-document.getElementById("formCadastro")
-.addEventListener("submit", async function(e){
+document.addEventListener("DOMContentLoaded", () => {
 
-    e.preventDefault();
+    console.log("DOM carregado");
 
-    const dados = {
+    document
+    .getElementById("formCadastro")
+    .addEventListener("submit", async function(e){
 
-        nome: document.getElementById("nome").value,
+        e.preventDefault();
 
-        idade: document.getElementById("idade").value,
+        console.log("BOTÃO SALVAR CLICADO");
 
-        endereco: document.getElementById("endereco").value,
+        const dados = {
 
-        telefone: document.getElementById("telefone").value,
+            nome: document.getElementById("nome").value,
+            idade: document.getElementById("idade").value,
+            endereco: document.getElementById("endereco").value,
+            telefone: document.getElementById("telefone").value,
+            status: document.getElementById("status").value,
+            tribo: tribo
 
-        status: document.getElementById("status").value,
+        };
 
-        tribo: tribo
+        console.log("Dados enviados:", dados);
 
-    };
 
-    const resposta = await fetch(`${API}/jovens`, {
+        const resposta = await fetch(`${API}/jovens`, {
 
-        method: "POST",
+            method:"POST",
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+            headers:{
+                "Content-Type":"application/json"
+            },
 
-        body: JSON.stringify(dados)
+            body:JSON.stringify(dados)
+
+        });
+
+
+        const resultado = await resposta.json();
+
+        console.log("Resposta servidor:", resultado);
+
+
+        if(resultado.sucesso){
+
+            alert("Jovem cadastrado!");
+
+            this.reset();
+
+            carregarJovens();
+
+        } else {
+
+            alert("Erro ao cadastrar");
+
+        }
 
     });
 
-    const resultado = await resposta.json();
-
-    if(resultado.sucesso){
-
-        this.reset();
-
-        carregarJovens();
-
-    }else{
-
-        alert("Erro ao cadastrar.");
-
-    }
 
 });
 
