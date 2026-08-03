@@ -314,10 +314,17 @@ function escolherData() {
         input.type = "date";
 
         input.style.position = "fixed";
-        input.style.opacity = "0";
-        input.style.pointerEvents = "none";
+        input.style.left = "50%";
+        input.style.top = "50%";
+        input.style.transform = "translate(-50%, -50%)";
+        input.style.zIndex = "9999";
+        input.style.opacity = "1";
+
 
         document.body.appendChild(input);
+
+
+        input.focus();
 
 
         input.onchange = () => {
