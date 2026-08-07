@@ -102,6 +102,18 @@ const idiomas = {
         selecionados: "Selecionados:",
         gerarPDF: "Gerar PDF",
         compartilharWhatsapp: "Compartilhar no WhatsApp",
+        
+        // REDE UNIVERSAL
+        redeUniversalTitulo: "Rede Universal",
+        telegramOficial: "Telegram Oficial",
+        portalUniversal: "Portal Universal",
+        univerVideo: "Univer Vídeo",
+        arcaCenter: "Arca Center",
+        podcast: "Podcast",
+        redesSociais: "Redes Sociais",
+        instagram: "Instagram",
+        facebook: "Facebook",
+        youtube: "YouTube",
 
     },  
 
@@ -207,6 +219,18 @@ const idiomas = {
         selecionados: "Selected:",
         gerarPDF: "Generate PDF",
         compartilharWhatsapp: "Share on WhatsApp",
+
+        // UNIVERSAL NETWORK
+        redeUniversalTitulo: "Universal Network",
+        telegramOficial: "Official Telegram",
+        portalUniversal: "Universal Portal",
+        univerVideo: "Univer Video",
+        arcaCenter: "Arca Center",
+        podcast: "Podcast",
+        redesSociais: "Social Media",
+        instagram: "Instagram",
+        facebook: "Facebook",
+        youtube: "YouTube",
 
     },
 
@@ -314,6 +338,17 @@ const idiomas = {
         gerarPDF: "Generar PDF",
         compartilharWhatsapp: "Compartir en WhatsApp",
 
+        // RED UNIVERSAL
+        redeUniversalTitulo: "Red Universal",
+        telegramOficial: "Telegram Oficial",
+        portalUniversal: "Portal Universal",
+        univerVideo: "Univer Video",
+        arcaCenter: "Arca Center",
+        podcast: "Podcast",
+        redesSociais: "Redes Sociales",
+        instagram: "Instagram",
+        facebook: "Facebook",
+        youtube: "YouTube",
     }
 
 };

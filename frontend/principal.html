@@ -63,8 +63,9 @@
 
 
 
-            <div 
-                class="card" 
+            <div
+                class="card"
+                id="cardRelatorio"
                 onclick="window.location.href='relatorio.html'">
 
                 <span>📄</span>
@@ -89,6 +90,20 @@
 
                 </h3>
 
+
+            </div>
+
+            <div 
+                class="card" 
+                onclick="window.location.href='rede-universal.html'">
+
+                <img src="images/rede-universal.png" alt="Rede Universal" class="card-icon">
+
+                <h3 data-lang="redeUniversal">
+
+                    Rede Universal
+
+                </h3>
 
             </div>
 
@@ -154,6 +169,7 @@
 
     <script src="js/lang.js"></script>
     <script src="js/idioma.js"></script>
+    <script src="js/permissoes.js"></script>
 
     <script>
 
@@ -192,6 +208,12 @@
         }
 
     }
+    // Esconde o card de relatórios para quem não tem permissão
+        if (!podeAcessarRelatorios()) {
+
+            document.getElementById("cardRelatorio").style.display = "none";
+
+        }
 
     document.addEventListener("visibilitychange", () => {
         if (!document.hidden) {

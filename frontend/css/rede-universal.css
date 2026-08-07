@@ -1,0 +1,718 @@
+/* ===========================
+   GERAL
+=========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 18px;
+
+    background: #1d3557;
+    color: white;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,.15);
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.voltar {
+    border: none;
+    background: none;
+    color: white;
+
+    font-size: 26px;
+
+    cursor: pointer;
+}
+
+/* ===========================
+   CONTEÚDO
+=========================== */
+
+main {
+    padding: 20px;
+}
+
+/* ===========================
+   BISPO
+=========================== */
+
+.bispo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.bispo img {
+    width: 100%;
+    max-width: 420px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+
+    margin-bottom: 18px;
+}
+
+.telegram {
+
+    width: 100%;
+    max-width: 420px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #0088cc;
+    color: white;
+
+    padding: 15px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.telegram:hover {
+
+    background: #0a74ad;
+    transform: translateY(-2px);
+
+}
+
+/* ===========================
+   SEÇÕES
+=========================== */
+
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+
+    margin-bottom: 15px;
+
+    color: #1d3557;
+
+    font-size: 22px;
+
+}
+
+/* ===========================
+   CARROSSEL
+=========================== */
+
+.slider {
+
+    position: relative;
+
+    width: 100%;
+    height: 200px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow: 0 5px 18px rgba(0,0,0,.12);
+
+}
+
+.slide {
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+
+}
+
+.slide img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+/* ===========================
+   BOLINHAS
+=========================== */
+
+.dots {
+
+    display: flex;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 12px;
+
+}
+
+.dot {
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #c7c7c7;
+
+    transition: .3s;
+
+}
+
+.dot.active {
+
+    background: #1d3557;
+
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+
+@media (max-width: 768px) {
+
+    header h1 {
+
+        font-size: 20px;
+
+    }
+
+    .slider {
+
+        height: 170px;
+
+    }
+
+}
+/*==================================
+    LOGOS DAS SEÇÕES
+===================================*/
+
+.section-title{
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+}
+
+.section-title img{
+
+    width: 30px;
+    height: 30px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    flex-shrink: 0;
+
+}
+
+.section-title h2{
+
+    margin: 0;
+
+    color: #1d3557;
+
+    font-size: 22px;
+    font-weight: 700;
+
+}
+
+/*==================================
+    BISPO MACEDO
+===================================*/
+
+.bispo{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 40px;
+
+}
+
+.bispo-img {
+
+    width: 100%;
+    max-width: 900px;
+
+    height: auto;
+
+    display: block;
+
+    border-radius: 22px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+
+}
+
+.bispo-img:hover{
+
+    transform: scale(1.01);
+
+}
+
+/*==================================
+    CARROSSEL
+===================================*/
+
+.carousel{
+
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 35px;
+
+    overflow: hidden;
+
+}
+
+.carousel-track{
+
+    display: flex;
+
+    transition: transform .45s ease-in-out;
+
+}
+
+.banner{
+
+    min-width: 100%;
+
+    cursor: pointer;
+
+}
+
+.banner img{
+
+    width: 100%;
+
+    height: 240px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+
+    transition: .3s;
+
+}
+
+.banner img:hover{
+
+    transform: scale(1.02);
+
+}
+
+
+/*==================================
+    BOTÕES
+===================================*/
+
+.prev,
+.next{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:45px;
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.92);
+
+    color:#1d3557;
+
+    font-size:22px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.18);
+
+    transition:.25s;
+
+    z-index:20;
+
+}
+
+.prev{
+
+    left:12px;
+
+}
+
+.next{
+
+    right:12px;
+
+}
+
+.prev:hover,
+.next:hover{
+
+    background:white;
+
+    transform:translateY(-50%) scale(1.08);
+
+}
+
+
+/*==================================
+    BOLINHAS
+===================================*/
+
+.dots{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:8px;
+
+    margin-top:14px;
+
+}
+
+.dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#d4d4d4;
+
+    transition:.3s;
+
+}
+
+.dot.active{
+
+    width:28px;
+
+    border-radius:20px;
+
+    background:#1d3557;
+
+}
+
+/*==================================
+    RESPONSIVO
+===================================*/
+
+@media(max-width:768px){
+
+    .banner img{
+
+        height:180px;
+
+    }
+
+    .prev,
+    .next{
+
+        width:38px;
+        height:38px;
+
+        font-size:18px;
+
+    }
+
+}
+/*==================================
+    CARD DO BANNER
+===================================*/
+
+.banner-content{
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+
+}
+
+.banner-content img{
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+.banner-texto{
+
+    padding: 15px 18px;
+
+}
+
+.banner-texto h3{
+
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #1d3557;
+
+    font-weight: bold;
+
+}
+
+.banner-texto p{
+
+    margin-top: 8px;
+
+    color: #666;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+}
+/*==================================
+    PODCAST
+===================================*/
+
+.Podcast-section{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 40px;
+
+}
+
+.Podcast-img{
+
+    width: 100%;
+    max-width: 900px;
+
+    height: auto;
+
+    display: block;
+
+    border-radius: 22px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.18);
+
+    margin-bottom: 18px;
+
+    transition: .3s;
+
+}
+
+.Podcast-img:hover{
+
+    transform: scale(1.01);
+
+}
+
+.Podcast{
+
+    width: 100%;
+    max-width: 420px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #0088cc;
+    color: white;
+
+    padding: 15px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.Podcast:hover{
+
+    background: #0a74ad;
+
+    transform: translateY(-2px);
+
+}
+/*==============================
+    REDES SOCIAIS
+==============================*/
+
+.redes{
+
+    margin-top:40px;
+
+}
+
+.social-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:15px 18px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.social-box:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+}
+
+.social-box img{
+
+    width:40px;
+
+    height:40px;
+
+    object-fit:contain;
+
+}
+
+.social-box span{
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+.arrow{
+
+    margin-left:auto;
+
+    color:#1d3557;
+
+    font-size:22px;
+
+}
+/*==================================
+    BOTÃO VOLTAR
+===================================*/
+
+.btn-voltar{
+
+    position: fixed;
+
+    top: 20px;
+    left: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #0c3f9e;
+    border-radius: 12px;
+
+    background: #08235a;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    z-index: 999;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+
+}
+
+.btn-voltar:hover{
+
+    background: #0c3f9e;
+
+    border-color: #d91f26;
+
+    transform: translateY(-2px);
+
+}
+
+.btn-voltar:active{
+
+    transform: scale(.95);
+
+}
