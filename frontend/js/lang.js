@@ -104,16 +104,50 @@ const idiomas = {
         compartilharWhatsapp: "Compartilhar no WhatsApp",
         
         // REDE UNIVERSAL
-        redeUniversalTitulo: "Rede Universal",
+
+        redeUniversal: "Rede Universal",
         telegramOficial: "Telegram Oficial",
         portalUniversal: "Portal Universal",
         univerVideo: "Univer Vídeo",
         arcaCenter: "Arca Center",
-        podcast: "Podcast",
-        redesSociais: "Redes Sociais",
-        instagram: "Instagram",
-        facebook: "Facebook",
-        youtube: "YouTube",
+        Podcast: "Podcast",
+        redesSociais: "🌐 Redes Sociais",
+
+        portalNoticiasTitulo: "Notícias",
+        portalNoticiasTexto: "Fique ligado nas últimas notícias.",
+
+        portalDoacaoTitulo: "Doar",
+        portalDoacaoTexto: "Faça sua doação pelo Portal Universal.",
+
+        portalPodcastTitulo: "Podcast",
+        portalPodcastTexto: "Ouça nossas mensagens e programas.",
+
+        amorRuinasTitulo: "Amor em Ruínas",
+        amorRuinasTexto: "Será que conhecemos o verdadeiro amor?",
+
+        joTitulo: "A Vida de Jó",
+        joTexto: "Íntegro, reto e temente a Deus, Jó é um jovem diferente dos demais.",
+
+        jesusTitulo: "Jesus",
+        jesusTexto: "Quando a história dos homens estava perto de cair em desgraça, tudo muda com a chegada do Salvador.",
+
+        ucraniaTitulo: "Um dia na vida de um Pastor na Ucrânia",
+        ucraniaTexto: "Como é fazer a Obra de Deus em um país em guerra?",
+
+        nefariousTitulo: "Nefarious",
+        nefariousTexto: "O filme que mostra como o diabo age de maneira invisível no mundo atual.",
+
+        loveSchoolTitulo: "Love School",
+        loveSchoolTexto: "Um programa que ensina sobre o amor e a importância das relações humanas.",
+
+        roupasTitulo: "Roupas",
+        roupasTexto: "Camisetas oficiais e muito mais!",
+
+        livrosTitulo: "Livros",
+        livrosTexto: "Edições especiais e muito mais!",
+
+        acessoriosTitulo: "Acessórios",
+        acessoriosTexto: "Acessórios oficiais e muito mais!",
 
     },  
 
@@ -220,17 +254,49 @@ const idiomas = {
         gerarPDF: "Generate PDF",
         compartilharWhatsapp: "Share on WhatsApp",
 
-        // UNIVERSAL NETWORK
-        redeUniversalTitulo: "Universal Network",
+        redeUniversal: "Universal Network",
         telegramOficial: "Official Telegram",
         portalUniversal: "Universal Portal",
         univerVideo: "Univer Video",
         arcaCenter: "Arca Center",
-        podcast: "Podcast",
-        redesSociais: "Social Media",
-        instagram: "Instagram",
-        facebook: "Facebook",
-        youtube: "YouTube",
+        Podcast: "Podcast",
+        redesSociais: "🌐 Social Media",
+
+        portalNoticiasTitulo: "News",
+        portalNoticiasTexto: "Stay up to date with the latest news.",
+
+        portalDoacaoTitulo: "Donate",
+        portalDoacaoTexto: "Make your donation through Universal Portal.",
+
+        portalPodcastTitulo: "Podcast",
+        portalPodcastTexto: "Listen to our messages and programs.",
+
+        amorRuinasTitulo: "Love in Ruins",
+        amorRuinasTexto: "Do we really know true love?",
+
+        joTitulo: "The Life of Job",
+        joTexto: "Honest, upright and God-fearing, Job is different from everyone else.",
+
+        jesusTitulo: "Jesus",
+        jesusTexto: "Everything changes forever with the arrival of the Savior.",
+
+        ucraniaTitulo: "A Day in the Life of a Pastor in Ukraine",
+        ucraniaTexto: "What is it like to serve God in a country at war?",
+
+        nefariousTitulo: "Nefarious",
+        nefariousTexto: "The movie that reveals how evil works invisibly today.",
+
+        loveSchoolTitulo: "Love School",
+        loveSchoolTexto: "A program about love and healthy relationships.",
+
+        roupasTitulo: "Clothing",
+        roupasTexto: "Official T-shirts and much more!",
+
+        livrosTitulo: "Books",
+        livrosTexto: "Special editions and much more!",
+
+        acessoriosTitulo: "Accessories",
+        acessoriosTexto: "Official accessories and much more!",
 
     },
 
@@ -338,17 +404,37 @@ const idiomas = {
         gerarPDF: "Generar PDF",
         compartilharWhatsapp: "Compartir en WhatsApp",
 
-        // RED UNIVERSAL
-        redeUniversalTitulo: "Red Universal",
+        redeUniversal: "Red Universal",
         telegramOficial: "Telegram Oficial",
         portalUniversal: "Portal Universal",
         univerVideo: "Univer Video",
         arcaCenter: "Arca Center",
-        podcast: "Podcast",
-        redesSociais: "Redes Sociales",
-        instagram: "Instagram",
-        facebook: "Facebook",
-        youtube: "YouTube",
+        Podcast: "Podcast",
+        redesSociais: "🌐 Redes Sociales",
+        portalNoticiasTitulo: "Noticias",
+        portalNoticiasTexto: "Manténgase al día con las últimas noticias.",
+        portalDoacaoTitulo: "Donar",
+        portalDoacaoTexto: "Realice su donación a través del Portal Universal.",
+        portalPodcastTitulo: "Podcast",
+        portalPodcastTexto: "Escuche nuestros mensajes y programas.",
+        amorRuinasTitulo: "Amor en Ruinas",
+        amorRuinasTexto: "¿Realmente conocemos el verdadero amor?",
+        joTitulo: "La Vida de Job",
+        joTexto: "Íntegro, recto y temeroso de Dios, Job es diferente de los demás.",
+        jesusTitulo: "Jesús",
+        jesusTexto: "Todo cambia para siempre con la llegada del Salvador.",
+        ucraniaTitulo: "Un día en la vida de un Pastor en Ucrania",
+        ucraniaTexto: "¿Cómo es hacer la Obra de Dios en un país en guerra?",
+        nefariousTitulo: "Nefarious",
+        nefariousTexto: "La película que muestra cómo actúa el mal de manera invisible.",
+        loveSchoolTitulo: "Love School",
+        loveSchoolTexto: "Un programa sobre el amor y las relaciones humanas.",
+        roupasTitulo: "Ropa",
+        roupasTexto: "¡Camisetas oficiales y mucho más!",
+        livrosTitulo: "Libros",
+        livrosTexto: "Ediciones especiales y mucho más.",
+        acessoriosTitulo: "Accesorios",
+        acessoriosTexto: "Accesorios oficiales y mucho más.",
     }
 
 };
