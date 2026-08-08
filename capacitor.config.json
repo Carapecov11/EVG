@@ -1,7 +1,7 @@
 {
-  "appId": "br.com.fju.evg",
+  "appId": "br.com.evg.vilamaria",
   "appName": "EVG",
-  "webDir": "frontend",
+  "webDir": "dist",
   "server": {
     "cleartext": true,
     "androidScheme": "http"

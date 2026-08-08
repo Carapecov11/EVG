@@ -2,22 +2,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const splash = document.querySelector(".splash");
 
-    if (!splash) return;
-
+    if (!splash) {
+        window.location.href = "login.html";
+        return;
+    }
 
     setTimeout(() => {
 
         splash.classList.add("sair");
 
-
         setTimeout(() => {
 
-            window.location.href = "login.html";
+            window.location.replace("login.html");
 
         }, 800);
 
-
     }, 2500);
-
 
 });
