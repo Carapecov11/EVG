@@ -1,9 +1,0 @@
-{
-  "appId": "br.com.evg.vilamaria",
-  "appName": "EVG",
-  "webDir": "dist",
-  "server": {
-    "cleartext": true,
-    "androidScheme": "http"
-  }
-}
