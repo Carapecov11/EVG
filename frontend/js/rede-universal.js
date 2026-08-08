@@ -89,7 +89,7 @@ const univer = [
 {
     imagem: "./images/loveschool.jpeg",
     titulo: "Love School",
-    texto: "Um programa que ensina sobre o amor e a importância das relações humanas.",
+    texto: "Um programa que ensina sobre o amor e a importância de um relacionamento inteligente.",
     link: "https://play.univervideo.com/#/home_home/home/vodcategory?menuSlug=programas/mediadetail?mediaId=d783e396-277b-4a47-9ea4-37b7034436c8&mediaType=Series&contentLocation=Voc%C3%AA%20vai%20gostar"
 }
 

@@ -664,55 +664,39 @@ section h2 {
     font-size:22px;
 
 }
-/*==================================
-    BOTÃO VOLTAR
-===================================*/
+/* ===============================
+   BOTÃO VOLTAR
+================================ */
 
-.btn-voltar{
+.btn-voltar {
 
-    position: fixed;
+    width: 42px;
+    height: 42px;
 
-    top: 20px;
-    left: 20px;
+    flex-shrink: 0;
 
-    width: 45px;
-    height: 45px;
+    border: 2px solid #29466f;
+    border-radius: 50%;
+
+    background: #1d3557;
+    color: white;
+
+    font-size: 18px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border: 2px solid #0c3f9e;
-    border-radius: 12px;
-
-    background: #08235a;
-
-    color: white;
-
-    font-size: 18px;
-
     cursor: pointer;
 
     transition: .3s;
-
-    z-index: 999;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,.2);
-
 }
 
-.btn-voltar:hover{
+.btn-voltar:hover {
 
-    background: #0c3f9e;
+    background: #29466f;
 
     border-color: #d91f26;
 
-    transform: translateY(-2px);
-
-}
-
-.btn-voltar:active{
-
-    transform: scale(.95);
-
+    transform: scale(1.05);
 }
