@@ -1,5 +1,5 @@
 {
   "appId": "br.com.evg.vilamaria",
   "appName": "EVG",
-  "webDir": "dist"
+  "webDir": "frontend"
 }
