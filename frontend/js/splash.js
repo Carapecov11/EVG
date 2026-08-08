@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log("INDO PARA LOGIN");
 
-            window.location.href = "login.html";
+            const loginUrl = new URL("login.html", window.location.href);
+
+            window.location.replace(loginUrl.href);
 
         }, 800);
 
