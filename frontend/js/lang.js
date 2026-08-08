@@ -13,7 +13,7 @@ const idiomas = {
 
         // LOGIN
         tituloLogin: "Caderno de EVG",
-        subtituloLogin: "FJU Vila Maria",
+        subtituloLogin: "Vila Maria",
 
         usuario: "Usuário",
         placeholderNome: "Nome",
@@ -164,7 +164,7 @@ const idiomas = {
 
         // LOGIN
         tituloLogin: "EVG Notebook",
-        subtituloLogin: "FJU Vila Maria",
+        subtituloLogin: "Vila Maria",
 
         usuario: "User",
         placeholderNome: "Name",
@@ -313,7 +313,7 @@ const idiomas = {
 
         // LOGIN
         tituloLogin: "Cuaderno EVG",
-        subtituloLogin: "FJU Vila Maria",
+        subtituloLogin: "Vila Maria",
 
         usuario: "Usuario",
         placeholderNome: "Nombre",
