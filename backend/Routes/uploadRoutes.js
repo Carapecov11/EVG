@@ -63,6 +63,8 @@ router.post("/", upload.single("foto"), async (req, res) => {
             .from("perfis")
             .getPublicUrl(nomeArquivo);
 
+        console.log("🔥 URL GERADA PELO SUPABASE:", data.publicUrl);
+
 
         res.json({
 
