@@ -1,35 +1,62 @@
+javascript
 // ========================================
 // CONFIGURAÇÕES
 // ========================================
 
-const { Filesystem } = Capacitor.Plugins;
-const { Share } = Capacitor.Plugins;
+// Capacitor pode existir somente dentro do aplicativo Android.
+// No navegador normal, ele não existe.
+const capacitorDisponivel =
+    typeof window !== "undefined" &&
+    typeof window.Capacitor !== "undefined";
 
-//console.log("Filesystem:", Filesystem);
-//console.log("Share:", Share);
+// Plugins nativos, quando disponíveis.
+const Filesystem =
+    capacitorDisponivel &&
+    window.Capacitor.Plugins
+        ? window.Capacitor.Plugins.Filesystem
+        : null;
+
+const Share =
+    capacitorDisponivel &&
+    window.Capacitor.Plugins
+        ? window.Capacitor.Plugins.Share
+        : null;
 
 const API = "https://evg-api-3u5m.onrender.com";
 
 let triboSelecionada = "";
 let jovens = [];
 
-let idiomaAtual = localStorage.getItem("idioma") || "pt";
+let idiomaAtual =
+    localStorage.getItem("idioma") || "pt";
 
 // ========================================
 // ELEMENTOS
 // ========================================
 
-const cards = document.querySelectorAll(".tribo-card");
-const lista = document.getElementById("listaJovens");
-const pesquisa = document.getElementById("pesquisa");
+const cards =
+    document.querySelectorAll(".tribo-card");
 
-const total = document.getElementById("totalJovens");
-const titulo = document.getElementById("tituloTribo");
+const lista =
+    document.getElementById("listaJovens");
 
-const selecionarTodos = document.getElementById("selecionarTodos");
-const desmarcarTodos = document.getElementById("desmarcarTodos");
+const pesquisa =
+    document.getElementById("pesquisa");
 
-const quantidade = document.getElementById("quantidadeSelecionados");
+const total =
+    document.getElementById("totalJovens");
+
+const titulo =
+    document.getElementById("tituloTribo");
+
+const selecionarTodos =
+    document.getElementById("selecionarTodos");
+
+const desmarcarTodos =
+    document.getElementById("desmarcarTodos");
+
+const quantidade =
+    document.getElementById("quantidadeSelecionados");
 
 // ========================================
 // TRADUÇÃO
@@ -46,7 +73,6 @@ function t(chave) {
     }
 
     return chave;
-
 }
 
 // ========================================
@@ -57,13 +83,17 @@ cards.forEach(card => {
 
     card.addEventListener("click", () => {
 
-        cards.forEach(c => c.classList.remove("ativo"));
+        cards.forEach(c =>
+            c.classList.remove("ativo")
+        );
 
         card.classList.add("ativo");
 
-        triboSelecionada = card.dataset.tribo;
+        triboSelecionada =
+            card.dataset.tribo;
 
-        titulo.textContent = card.querySelector("span").textContent;
+        titulo.textContent =
+            card.querySelector("span").textContent;
 
         carregarJovens();
 
@@ -77,22 +107,27 @@ cards.forEach(card => {
 
 async function carregarJovens() {
 
-    lista.innerHTML = `<p>${t("carregando")}</p>`;
+    lista.innerHTML =
+        `<p>${t("carregando")}</p>`;
 
     try {
 
-        const resposta = await fetch(`${API}/jovens`);
+        const resposta =
+            await fetch(`${API}/jovens`);
 
         if (!resposta.ok) {
-            throw new Error("Erro ao buscar jovens.");
+            throw new Error(
+                "Erro ao buscar jovens."
+            );
         }
 
-        const todos = await resposta.json();
+        const todos =
+            await resposta.json();
 
         jovens = todos.filter(j =>
-
-            (j.tribo || "").toLowerCase() === triboSelecionada.toLowerCase()
-
+            (j.tribo || "")
+                .toLowerCase() ===
+            triboSelecionada.toLowerCase()
         );
 
         atualizarTotal();
@@ -104,7 +139,9 @@ async function carregarJovens() {
         console.error("Erro:", erro);
 
         lista.innerHTML = `
-            <p>Erro ao carregar os jovens.</p>
+            <p>
+                Erro ao carregar os jovens.
+            </p>
         `;
 
     }
@@ -133,13 +170,14 @@ function renderizar(listaJovens) {
     if (!listaJovens.length) {
 
         lista.innerHTML = `
-            <p>${t("nenhumJovemEncontrado")}</p>
+            <p>
+                ${t("nenhumJovemEncontrado")}
+            </p>
         `;
 
         atualizarContador();
 
         return;
-
     }
 
     listaJovens.forEach(jovem => {
@@ -154,7 +192,8 @@ function renderizar(listaJovens) {
                     id="jovem-${jovem.id}"
                     value="${jovem.id}">
 
-                <label for="jovem-${jovem.id}">
+                <label
+                    for="jovem-${jovem.id}">
                     ${jovem.nome}
                 </label>
 
@@ -183,21 +222,26 @@ function renderizar(listaJovens) {
 // PESQUISA
 // ========================================
 
-pesquisa.addEventListener("input", () => {
+pesquisa.addEventListener(
+    "input",
+    () => {
 
-    const texto = pesquisa.value
-        .trim()
-        .toLowerCase();
+        const texto =
+            pesquisa.value
+                .trim()
+                .toLowerCase();
 
-    const filtrados = jovens.filter(j =>
+        const filtrados =
+            jovens.filter(j =>
+                j.nome
+                    .toLowerCase()
+                    .includes(texto)
+            );
 
-        j.nome.toLowerCase().includes(texto)
+        renderizar(filtrados);
 
-    );
-
-    renderizar(filtrados);
-
-});
+    }
+);
 
 // ========================================
 // CONTADOR
@@ -206,36 +250,53 @@ pesquisa.addEventListener("input", () => {
 function atualizarContador() {
 
     quantidade.textContent =
-        document.querySelectorAll(".checkJovem:checked").length;
+        document.querySelectorAll(
+            ".checkJovem:checked"
+        ).length;
 
 }
+
 // ========================================
 // SELECIONAR TODOS
 // ========================================
 
-selecionarTodos.addEventListener("click", () => {
+selecionarTodos.addEventListener(
+    "click",
+    () => {
 
-    document.querySelectorAll(".checkJovem").forEach(check => {
-        check.checked = true;
-    });
+        document
+            .querySelectorAll(".checkJovem")
+            .forEach(check => {
 
-    atualizarContador();
+                check.checked = true;
 
-});
+            });
+
+        atualizarContador();
+
+    }
+);
 
 // ========================================
 // DESMARCAR TODOS
 // ========================================
 
-desmarcarTodos.addEventListener("click", () => {
+desmarcarTodos.addEventListener(
+    "click",
+    () => {
 
-    document.querySelectorAll(".checkJovem").forEach(check => {
-        check.checked = false;
-    });
+        document
+            .querySelectorAll(".checkJovem")
+            .forEach(check => {
 
-    atualizarContador();
+                check.checked = false;
 
-});
+            });
+
+        atualizarContador();
+
+    }
+);
 
 // ========================================
 // OBTER JOVENS SELECIONADOS
@@ -245,9 +306,10 @@ function obterSelecionados() {
 
     return jovens.filter(jovem => {
 
-        const check = document.querySelector(
-            `.checkJovem[value="${jovem.id}"]`
-        );
+        const check =
+            document.querySelector(
+                `.checkJovem[value="${jovem.id}"]`
+            );
 
         return check && check.checked;
 
@@ -263,7 +325,10 @@ function formatarTelefone(numero) {
 
     if (!numero) return "-";
 
-    numero = numero.toString().replace(/\D/g, "");
+    numero =
+        numero
+            .toString()
+            .replace(/\D/g, "");
 
     if (numero.length === 11) {
 
@@ -293,21 +358,27 @@ function formatarTelefone(numero) {
 
 function blobToBase64(blob) {
 
-    return new Promise((resolve, reject) => {
+    return new Promise(
+        (resolve, reject) => {
 
-        const reader = new FileReader();
+            const reader =
+                new FileReader();
 
-        reader.onloadend = () => {
+            reader.onloadend = () => {
 
-            resolve(reader.result.split(",")[1]);
+                resolve(
+                    reader.result
+                        .split(",")[1]
+                );
 
-        };
+            };
 
-        reader.onerror = reject;
+            reader.onerror = reject;
 
-        reader.readAsDataURL(blob);
+            reader.readAsDataURL(blob);
 
-    });
+        }
+    );
 
 }
 
@@ -327,35 +398,69 @@ async function gerarPDF(selecionados) {
 
     });
 
-    const dataAtual = new Date().toLocaleDateString("pt-BR");
+    const dataAtual =
+        new Date()
+            .toLocaleDateString("pt-BR");
 
     // =====================================
     // CABEÇALHO
     // =====================================
 
-    doc.setFillColor(0, 45, 114);
-    doc.rect(0, 0, 297, 42, "F");
+    doc.setFillColor(
+        0,
+        45,
+        114
+    );
 
-    doc.setFillColor(220, 35, 45);
-    doc.rect(0, 42, 297, 5, "F");
+    doc.rect(
+        0,
+        0,
+        297,
+        42,
+        "F"
+    );
+
+    doc.setFillColor(
+        220,
+        35,
+        45
+    );
+
+    doc.rect(
+        0,
+        42,
+        297,
+        5,
+        "F"
+    );
 
     doc.setTextColor(255);
-    doc.setFont("helvetica", "bold");
+
+    doc.setFont(
+        "helvetica",
+        "bold"
+    );
 
     doc.setFontSize(24);
+
     doc.text(
         "FORÇA JOVEM UNIVERSAL",
         148.5,
         18,
-        { align: "center" }
+        {
+            align: "center"
+        }
     );
 
     doc.setFontSize(15);
+
     doc.text(
         "Relatório da Tribo",
         148.5,
         30,
-        { align: "center" }
+        {
+            align: "center"
+        }
     );
 
     // =====================================
@@ -365,7 +470,11 @@ async function gerarPDF(selecionados) {
     doc.setTextColor(0);
 
     doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
+
+    doc.setFont(
+        "helvetica",
+        "normal"
+    );
 
     doc.text(
         `Data: ${dataAtual}`,
@@ -385,8 +494,19 @@ async function gerarPDF(selecionados) {
         76
     );
 
-    doc.setDrawColor(0, 45, 114);
-    doc.line(15, 83, 282, 83);
+    doc.setDrawColor(
+        0,
+        45,
+        114
+    );
+
+    doc.line(
+        15,
+        83,
+        282,
+        83
+    );
+
     // =====================================
     // TABELA
     // =====================================
@@ -407,19 +527,20 @@ async function gerarPDF(selecionados) {
             t("status")
         ]],
 
-        body: selecionados.map(jovem => [
+        body:
+            selecionados.map(jovem => [
 
-            jovem.nome || "-",
+                jovem.nome || "-",
 
-            jovem.idade || "-",
+                jovem.idade || "-",
 
-            formatarTelefone(
-                jovem.telefone
-            ),
+                formatarTelefone(
+                    jovem.telefone
+                ),
 
-            jovem.status || "-"
+                jovem.status || "-"
 
-        ]),
+            ]),
 
         theme: "grid",
 
@@ -441,7 +562,11 @@ async function gerarPDF(selecionados) {
 
         headStyles: {
 
-            fillColor: [0,45,114],
+            fillColor: [
+                0,
+                45,
+                114
+            ],
 
             textColor: 255,
 
@@ -453,7 +578,11 @@ async function gerarPDF(selecionados) {
 
         alternateRowStyles: {
 
-            fillColor: [245,245,245]
+            fillColor: [
+                245,
+                245,
+                245
+            ]
 
         },
 
@@ -493,46 +622,52 @@ async function gerarPDF(selecionados) {
     // RODAPÉ
     // =====================================
 
-    const paginas = doc.internal.getNumberOfPages();
+    const paginas =
+        doc.internal.getNumberOfPages();
 
-    for (let i = 1; i <= paginas; i++) {
+    for (
+        let i = 1;
+        i <= paginas;
+        i++
+    ) {
 
         doc.setPage(i);
 
-        doc.setDrawColor(220,35,45);
+        doc.setDrawColor(
+            220,
+            35,
+            45
+        );
 
-        doc.line(15,190,282,190);
+        doc.line(
+            15,
+            190,
+            282,
+            190
+        );
 
-        doc.setFont("helvetica","normal");
+        doc.setFont(
+            "helvetica",
+            "normal"
+        );
 
         doc.setFontSize(10);
 
         doc.setTextColor(120);
 
         doc.text(
-
             "Sistema EVG - Força Jovem Universal",
-
             15,
-
             197
-
         );
 
         doc.text(
-
             `Página ${i} de ${paginas}`,
-
             282,
-
             197,
-
             {
-
                 align: "right"
-
             }
-
         );
 
     }
@@ -544,42 +679,88 @@ async function gerarPDF(selecionados) {
     return doc.output("blob");
 
 }
+
 // ========================================
-// BAIXAR PDF (NAVEGADOR)
+// BAIXAR PDF
 // ========================================
 
-async function baixarPDF(blob, nomeArquivo) {
+async function baixarPDF(
+    blob,
+    nomeArquivo
+) {
+
+    // =====================================
+    // CAPACITOR / ANDROID
+    // =====================================
+
+    if (Filesystem) {
+
+        try {
+
+            const base64 =
+                await blobToBase64(blob);
+
+            await Filesystem.writeFile({
+
+                path: nomeArquivo,
+
+                data: base64,
+
+                directory: "DOCUMENTS"
+
+            });
+
+            alert(
+                "PDF salvo com sucesso!"
+            );
+
+            return;
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao salvar PDF no Android:",
+                erro
+            );
+
+            // Continua para o fallback
+        }
+
+    }
+
+    // =====================================
+    // NAVEGADOR
+    // =====================================
 
     try {
 
-        const base64 = await blobToBase64(blob);
+        const url =
+            URL.createObjectURL(blob);
 
+        const link =
+            document.createElement("a");
 
-        await Capacitor.Plugins.Filesystem.writeFile({
+        link.href = url;
 
-            path: nomeArquivo,
+        link.download = nomeArquivo;
 
-            data: base64,
+        document.body.appendChild(link);
 
-            directory: "DOCUMENTS",
+        link.click();
 
-        });
+        link.remove();
 
-
-        alert(
-            "PDF salvo com sucesso!"
-        );
-
+        URL.revokeObjectURL(url);
 
     } catch (erro) {
 
         console.error(
-            "Erro ao salvar PDF:",
+            "Erro ao baixar PDF:",
             erro
         );
 
         alert(
-            "Erro ao salvar PDF."
+            "Erro ao salvar o PDF."
         );
 
     }
@@ -590,56 +771,121 @@ async function baixarPDF(blob, nomeArquivo) {
 // COMPARTILHAR PDF
 // ========================================
 
-async function compartilharPDF(blob, nomeArquivo) {
+async function compartilharPDF(
+    blob,
+    nomeArquivo
+) {
+
+    // =====================================
+    // CAPACITOR / ANDROID
+    // =====================================
+
+    if (
+        Filesystem &&
+        Share
+    ) {
+
+        try {
+
+            const base64 =
+                await blobToBase64(blob);
+
+            await Filesystem.writeFile({
+
+                path: nomeArquivo,
+
+                data: base64,
+
+                directory: "CACHE"
+
+            });
+
+            const resultado =
+                await Filesystem.getUri({
+
+                    path: nomeArquivo,
+
+                    directory: "CACHE"
+
+                });
+
+            await Share.share({
+
+                title: "Relatório EVG",
+
+                text: "Relatório da Tribo",
+
+                url: resultado.uri
+
+            });
+
+            return;
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao compartilhar pelo Android:",
+                erro
+            );
+
+        }
+
+    }
+
+    // =====================================
+    // NAVEGADOR
+    // =====================================
 
     try {
 
-        const base64 = await blobToBase64(blob);
+        const arquivo =
+            new File(
+                [blob],
+                nomeArquivo,
+                {
+                    type: "application/pdf"
+                }
+            );
 
+        if (
+            navigator.share &&
+            navigator.canShare &&
+            navigator.canShare({
+                files: [arquivo]
+            })
+        ) {
 
-        const arquivo = await Capacitor.Plugins.Filesystem.writeFile({
+            await navigator.share({
 
-            path: nomeArquivo,
+                title: "Relatório EVG",
 
-            data: base64,
+                text: "Relatório da Tribo",
 
-            directory: "CACHE"
+                files: [arquivo]
 
-        });
+            });
 
+            return;
 
-        const uri = await Capacitor.Plugins.Filesystem.getUri({
-
-            path: nomeArquivo,
-
-            directory: "CACHE"
-
-        });
-
-
-        await Capacitor.Plugins.Share.share({
-
-            title: "Relatório EVG",
-
-            text: "Relatório da Tribo",
-
-            url: uri.uri
-
-        });
-
+        }
 
     } catch (erro) {
 
-        console.error(
-            "ERRO PDF:",
+        console.warn(
+            "Compartilhamento do navegador indisponível:",
             erro
         );
 
-        alert(
-            "Erro ao compartilhar PDF"
-        );
-
     }
+
+    // =====================================
+    // FALLBACK
+    // =====================================
+
+    await baixarPDF(
+        blob,
+        nomeArquivo
+    );
 
 }
 
@@ -649,36 +895,50 @@ async function compartilharPDF(blob, nomeArquivo) {
 
 document
     .getElementById("gerarPDF")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
 
-        const selecionados = obterSelecionados();
+            const selecionados =
+                obterSelecionados();
 
-        if (!selecionados.length) {
+            if (!selecionados.length) {
 
-            alert(t("selecionarPeloMenosUm"));
+                alert(
+                    t("selecionarPeloMenosUm")
+                );
 
-            return;
+                return;
+
+            }
+
+            try {
+
+                const blob =
+                    await gerarPDF(
+                        selecionados
+                    );
+
+                const nomeArquivo =
+                    `Relatorio_${triboSelecionada}_${Date.now()}.pdf`;
+
+                await baixarPDF(
+                    blob,
+                    nomeArquivo
+                );
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Erro ao gerar o PDF."
+                );
+
+            }
 
         }
-
-        try {
-
-            const blob = await gerarPDF(selecionados);
-
-            const nomeArquivo =
-                `Relatorio_${triboSelecionada}_${Date.now()}.pdf`;
-
-            await baixarPDF(blob, nomeArquivo);
-
-        } catch (erro) {
-
-            console.error(erro);
-
-            alert("Erro ao gerar o PDF.");
-
-        }
-
-    });
+    );
 
 // ========================================
 // BOTÃO WHATSAPP
@@ -686,42 +946,59 @@ document
 
 document
     .getElementById("compartilhar")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
 
-        const selecionados = obterSelecionados();
+            const selecionados =
+                obterSelecionados();
 
-        if (!selecionados.length) {
+            if (!selecionados.length) {
 
-            alert(t("selecionarPeloMenosUm"));
+                alert(
+                    t("selecionarPeloMenosUm")
+                );
 
-            return;
+                return;
+
+            }
+
+            try {
+
+                const blob =
+                    await gerarPDF(
+                        selecionados
+                    );
+
+                const nomeArquivo =
+                    `Relatorio_${triboSelecionada}_${Date.now()}.pdf`;
+
+                await compartilharPDF(
+                    blob,
+                    nomeArquivo
+                );
+
+            } catch (erro) {
+
+                console.error(erro);
+
+                alert(
+                    "Erro ao gerar o PDF."
+                );
+
+            }
 
         }
-
-        try {
-
-        const blob = await gerarPDF(selecionados);
-
-        const nomeArquivo =
-            `Relatorio_${triboSelecionada}_${Date.now()}.pdf`;
-
-        await compartilharPDF(blob, nomeArquivo);
-
-    } catch (erro) {
-
-        console.error(erro);
-
-        alert("Erro ao gerar o PDF.");
-
-    }
-
-    });
+    );
 
 // ========================================
 // INICIALIZAÇÃO
 // ========================================
 
 atualizarContador();
+
 atualizarTotal();
 
-console.log("Relatório EVG carregado com sucesso.");
+console.log(
+    "Relatório EVG carregado com sucesso."
+);
